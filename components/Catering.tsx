@@ -25,8 +25,8 @@ const COLLAGE = [
     position: "object-center",
   },
   {
-    src: "/images/catering-biryani.jpg",
-    alt: "A biryani thali served with raita, salad and curry on a steel plate",
+    src: "/images/catering-chafing-spread.jpg",
+    alt: "Chafing dishes lined up with a garnished rice and salad spread at a Dosa Hut catering setup",
     className: "",
     sizes: "(max-width: 640px) 100vw, 280px",
     position: "object-center",
