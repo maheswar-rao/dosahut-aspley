@@ -35,6 +35,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "starter", "snack", "fried"],
     description: "A deep fried pastry filled with potatoes & peas served with tamarind chutney",
+    image: "/images/dishes/samosa.jpg",
   },
   {
     code: "A2",
@@ -45,6 +46,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "starter", "snack", "sambar"],
     description: "A deep fried pastry filled with potatoes & peas served & dipped with sambar",
+    image: "/images/dishes/sambar-samosa-1-pc.jpg",
   },
   {
     code: "A3",
@@ -55,6 +57,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "south_indian", "snack"],
     description: "A savory fried snack made with lentil and spiced herbs & spices served with chutney & sambar",
+    image: "/images/dishes/vada-1-pc.jpg",
   },
   {
     code: "A4",
@@ -65,6 +68,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "south_indian", "steamed", "healthy"],
     description: "A soft steamed rice cake made from a fermented batter served with chutney & sambar",
+    image: "/images/dishes/idly-2-pcs.jpg",
   },
   {
     code: "A5",
@@ -85,6 +89,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["vegetarian", "south_indian", "ghee", "gunpowder"],
     description: "A soft steamed rice cake made from a fermented batter spread with ghee & gunpowder (spiced lentil powder)",
+    image: "/images/dishes/ghee-podi-idly-2-pcs.jpg",
   },
   {
     code: "A7",
@@ -95,6 +100,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["vegetarian", "spicy", "snack", "fried"],
     description: "Deep fried green chilli fritters",
+    image: "/images/dishes/mirchi-bhaji-3-pc.jpg",
   },
   {
     code: "A8",
@@ -105,6 +111,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["vegetarian", "spicy", "snack", "crispy"],
     description: "Crispy cut fried chilli fritters",
+    image: "/images/dishes/cut-mirchi.jpg",
   },
   {
     code: "A9",
@@ -135,6 +142,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "chaat", "yogurt", "tangy"],
     description: "Soft lentil fritters soaked in creamy yoghurt topped with tangy tamarind sauce & garnished with sev, onions, beetroot & carrot, coriander",
+    image: "/images/dishes/dahi-bhalla.jpg",
   },
   {
     code: "C2",
@@ -145,6 +153,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["vegetarian", "chaat", "street_food", "tangy"],
     description: "A crispy hollow puri filled with spicy, tangy flavoured water & stuffed with potato, chana mix",
+    image: "/images/dishes/pani-puri-6-pcs.jpg",
   },
   {
     code: "C3",
@@ -155,6 +164,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "chaat", "yogurt", "sweet_tangy"],
     description: "A crispy hollow puri filled with stuffed potato, chana mix & sweet yoghurt, mint sauce",
+    image: "/images/dishes/dahi-puri-6-pcs.jpg",
   },
   {
     code: "C4",
@@ -165,6 +175,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["vegetarian", "chaat", "samosa", "street_food"],
     description: "A flavorful Indian snack made by topping crumbled samosas with chickpeas, yoghurt, chutneys, & spices",
+    image: "/images/dishes/samosa-chaat.jpg",
   },
   {
     code: "C5",
@@ -175,6 +186,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "chaat", "crispy", "street_food"],
     description: "Crispy wafers topped with boiled potatoes, chickpeas, yoghurt, chutneys, & spices, garnished with sev, onions, beetroot & carrot, coriander",
+    image: "/images/dishes/papdi-chaat.jpg",
   },
   {
     code: "C6",
@@ -185,6 +197,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["vegetarian", "mumbai_special", "butter", "curry"],
     description: "Spicy mashed vegetable curry served with buttered, toasted buns",
+    image: "/images/dishes/pav-bhaji.jpg",
   },
   {
     code: "C7",
@@ -195,6 +208,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["vegetarian", "north_indian", "chickpeas", "heavy"],
     description: "Spicy chickpea curry (chole) served with deep-fried bread (bhature)",
+    image: "/images/dishes/chole-bhature.jpg",
   },
   {
     code: "D2",
@@ -446,6 +460,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "noodles", "chinese", "veg"],
     description: "Stir-fried noodles & a colorful mix of fresh vegetables, seasoned with savory sauces",
+    image: "/images/dishes/vegetable-noodles.jpg",
   },
   {
     code: "F24",
@@ -456,6 +471,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "fried_rice", "chinese", "veg"],
     description: "Stir-frying cooked rice with assorted vegetables",
+    image: "/images/dishes/vegetarian-fried-rice.jpg",
   },
   {
     code: "F27",
@@ -466,6 +482,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["vegetarian", "fried_rice", "cauliflower", "spicy", "fusion"],
     description: "Spicy, deep-fried cauliflower (Gobi 65) mixed with flavorful, aromatic fried rice",
+    image: "/images/dishes/gobi-65-fried-rice.jpg",
   },
   {
     code: "F30",
@@ -716,6 +733,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["non_vegetarian", "egg", "omelette", "spicy"],
     description: "Eggs mixed with chopped onions, green chilies, and spices, cooked until golden brown",
+    image: "/images/dishes/onion-chilli-omelette.jpg",
   },
   {
     code: "B2",
@@ -726,6 +744,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "egg", "chicken", "omelette"],
     description: "Eggs mixed with chopped chicken, onions, green chilies, and spices",
+    image: "/images/dishes/chicken-omelette.jpg",
   },
   {
     code: "D1",
@@ -820,6 +839,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "chicken", "bone_in", "punjabi", "curry"],
     description: "Bone chicken pieces cooked in a rich tomato sauce, flavored with butter, cream, & spices",
+    image: "/images/dishes/punjabi-butter-chicken.jpg",
   },
   {
     code: "E17",
@@ -973,6 +993,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["non_vegetarian", "seafood", "prawn", "spicy", "curry"],
     description: "Prawns cooked in a rich blend of aromatic spices & tomatoes",
+    image: "/images/dishes/prawn-masala.jpg",
   },
   {
     code: "F12",
@@ -1060,6 +1081,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["non_vegetarian", "egg", "noodles", "chinese"],
     description: "Stir-fried noodles & scrambled eggs combined with vegetables",
+    image: "/images/dishes/egg-noodles.jpg",
   },
   {
     code: "F21",
@@ -1070,6 +1092,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["non_vegetarian", "chicken", "noodles", "chinese"],
     description: "Stir-fried noodles with tender chicken pieces, vegetables, & seasonings",
+    image: "/images/dishes/chicken-noodles.jpg",
   },
   {
     code: "F22",
@@ -1080,6 +1103,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["non_vegetarian", "seafood", "prawn", "noodles", "chinese"],
     description: "Stir-fried noodles with succulent prawns, vegetables, & seasonings",
+    image: "/images/dishes/prawn-noodles.jpg",
   },
   {
     code: "F23",
@@ -1090,6 +1114,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "chicken", "prawn", "noodles", "combo"],
     description: "Noodles with vegetables, chicken & prawns seasoned with aromatic sauces",
+    image: "/images/dishes/mixed-noodles.jpg",
   },
   {
     code: "F25",
@@ -1100,6 +1125,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["non_vegetarian", "egg", "fried_rice", "chinese"],
     description: "Scrambled eggs, vegetables, and savory seasonings with rice",
+    image: "/images/dishes/egg-fried-rice.jpg",
   },
   {
     code: "F26",
@@ -1110,6 +1136,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["non_vegetarian", "chicken", "fried_rice", "chinese"],
     description: "Stir-frying cooked rice with tender chicken pieces & vegetables",
+    image: "/images/dishes/chicken-fried-rice.jpg",
   },
   {
     code: "F28",
@@ -1120,6 +1147,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "chicken", "prawn", "fried_rice", "combo"],
     description: "Fried rice with vegetables, chicken & prawns",
+    image: "/images/dishes/mixed-fried-rice.jpg",
   },
   {
     code: "F29",
@@ -1130,6 +1158,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["non_vegetarian", "chicken", "65", "fried_rice", "spicy"],
     description: "Deep-fried Chicken 65 tossed with aromatic fried rice",
+    image: "/images/dishes/chicken-65-fried-rice.jpg",
   },
   {
     code: "F31",
@@ -1334,6 +1363,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "naan", "bread", "chicken_tikka"],
     description: "Flatbread filled with flavorful, spiced chicken tikka",
+    image: "/images/dishes/chicken-tikka-naan.jpg",
   },
 ];
 
