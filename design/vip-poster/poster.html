@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dosa Hut Aspley — VIP Club A3 poster</title>
+<style>
+  @font-face { font-family: 'Cormorant Garamond'; font-weight: 700; font-style: italic;
+    src: url('{{CORMORANT_700_ITALIC}}') format('woff2'); font-display: block; }
+  @font-face { font-family: 'Cormorant Garamond'; font-weight: 700; font-style: normal;
+    src: url('{{CORMORANT_700}}') format('woff2'); font-display: block; }
+  @font-face { font-family: 'Oswald'; font-weight: 500;
+    src: url('{{OSWALD_500}}') format('woff2'); font-display: block; }
+  @font-face { font-family: 'Oswald'; font-weight: 600;
+    src: url('{{OSWALD_600}}') format('woff2'); font-display: block; }
+  @font-face { font-family: 'Oswald'; font-weight: 700;
+    src: url('{{OSWALD_700}}') format('woff2'); font-display: block; }
+  @font-face { font-family: 'Nunito'; font-weight: 200;
+    src: url('{{NUNITO_200}}') format('woff2'); font-display: block; }
+  @font-face { font-family: 'Nunito'; font-weight: 400;
+    src: url('{{NUNITO_400}}') format('woff2'); font-display: block; }
+  @font-face { font-family: 'Nunito'; font-weight: 600;
+    src: url('{{NUNITO_600}}') format('woff2'); font-display: block; }
+
+  /* Exact A3. No printer margin — the maroon bands run to the paper edge. */
+  @page { size: A3; margin: 0; }
+
+  :root {
+    --maroon: #570B0B;
+    --maroon-deep: #3D0707;
+    --orange: #F15A27;
+    --orange-deep: #D94E1D;
+    --peach: #F79473;
+    --cream: #FFF7F4;
+    --cream-warm: #F9ECE4;
+    --ink: #241512;
+    --ink-soft: #5C4A44;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 297mm; height: 420mm; }
+  body {
+    font-family: 'Nunito', system-ui, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page { width: 297mm; height: 420mm; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* ── header ─────────────────────────────────────────────── */
+  .header { background: var(--maroon); padding: 10mm 0 6.5mm; display: flex;
+            flex-direction: column; align-items: center; gap: 5.5mm; }
+  .header img { width: 47mm; height: auto; display: block; }
+  .dots { display: flex; gap: 7mm; }
+  .dots i { width: 2.2mm; height: 2.2mm; border-radius: 50%; background: var(--orange); display: block; }
+  .dots i:nth-child(even) { background: var(--peach); }
+
+  /* ── body ───────────────────────────────────────────────── */
+  .body { flex: 1; padding: 8.5mm 22mm 0; display: flex; flex-direction: column; align-items: center; }
+
+  .eyebrow { font-family: 'Oswald'; font-weight: 600; font-size: 4.6mm;
+             letter-spacing: 0.42em; text-transform: uppercase; color: var(--orange); }
+  h1 { font-family: 'Cormorant Garamond'; font-weight: 700; font-style: italic;
+       font-size: 17.5mm; line-height: 1.02; text-align: center; margin-top: 3mm; color: var(--maroon); }
+  h1 .accent { color: var(--orange); }
+  .sub { margin-top: 3.5mm; font-size: 5mm; font-weight: 400; color: var(--ink-soft); text-align: center; }
+
+  /* ── the ticket ─────────────────────────────────────────── */
+  .ticket { margin-top: 8mm; transform: rotate(-1.1deg); }
+  .ticket svg { display: block; width: 231mm; height: auto; }
+
+  /* ── scan + steps ───────────────────────────────────────── */
+  .scan { margin-top: 7.5mm; display: flex; align-items: center; gap: 14mm; }
+  .qr { background: #fff; border: 1.1mm solid var(--maroon); border-radius: 3mm;
+        padding: 5mm 5mm 3.5mm; display: flex; flex-direction: column; align-items: center; gap: 3mm; }
+  .qr img { width: 60mm; height: 60mm; display: block; image-rendering: pixelated; }
+  .qr span { font-family: 'Oswald'; font-weight: 700; font-size: 5mm;
+             letter-spacing: 0.2em; color: var(--maroon); }
+
+  ol.steps { list-style: none; display: flex; flex-direction: column; gap: 4.4mm; }
+  ol.steps li { display: flex; align-items: center; gap: 4.5mm; font-size: 5.1mm; font-weight: 600; }
+  ol.steps b { width: 9mm; height: 9mm; border-radius: 50%; background: var(--orange);
+               color: var(--cream); font-family: 'Oswald'; font-weight: 700; font-size: 4.6mm;
+               display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  /* ── prizes ─────────────────────────────────────────────── */
+  .prizes { margin-top: 9mm; width: 100%; display: flex; flex-direction: column;
+            align-items: center; gap: 3.5mm; }
+  .prizes p { font-family: 'Oswald'; font-weight: 600; font-size: 4.2mm;
+              letter-spacing: 0.22em; text-transform: uppercase; color: var(--maroon); }
+  .prizes ul { list-style: none; display: flex; gap: 3.5mm; justify-content: center; flex-wrap: wrap; }
+  .prizes li { font-family: 'Oswald'; font-weight: 600; font-size: 4.3mm; letter-spacing: 0.06em;
+               color: var(--maroon); background: var(--cream-warm);
+               border: 0.45mm solid var(--peach); border-radius: 99mm; padding: 2.2mm 5.5mm; }
+
+  /* ── fine print + footer ────────────────────────────────── */
+  .fine { margin-top: auto; padding: 4.5mm 0 4mm; width: 100%; border-top: 0.35mm solid #F0E0D6;
+          text-align: center; font-size: 3.4mm; font-weight: 200; color: var(--ink-soft); line-height: 1.5; }
+  .footer { background: var(--maroon); padding: 5mm 0 5.5mm; text-align: center;
+            display: flex; flex-direction: column; gap: 2.2mm; }
+  .footer .line1 { font-family: 'Oswald'; font-weight: 600; font-size: 5.2mm;
+                   letter-spacing: 0.04em; color: var(--cream); }
+  .footer .line2 { font-size: 4mm; font-weight: 400; color: var(--peach); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <img src="{{LOGO}}" alt="Dosa Hut Aspley">
+    <div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </header>
+
+  <main class="body">
+    <p class="eyebrow">Welcome Reward</p>
+    <h1>You're in.<br><span class="accent">Go on, scratch it.</span></h1>
+    <p class="sub">Scan the code, verify on WhatsApp, and scratch your reward on the spot.</p>
+
+    <!-- The ticket is drawn mid-scratch: foil partly torn away over a reward
+         underneath. Showing both states at once is what makes the mechanic
+         read instantly from across the room. -->
+    <div class="ticket">
+      <svg viewBox="0 0 1050 520" role="img" aria-label="Scratch ticket, partly scratched to reveal a reward">
+        <defs>
+          <!-- Base: bands running diagonally, with the cool shadows and warm
+               highlights real foil shows. Flat grey is what makes a printed
+               scratch panel look like a placeholder. -->
+          <linearGradient id="foil" x1="0.04" y1="0" x2="0.96" y2="1">
+            <stop offset="0%"   stop-color="#FFFFFF"/>
+            <stop offset="13%"  stop-color="#D6D4D0"/>
+            <stop offset="25%"  stop-color="#ABABAC"/>
+            <stop offset="38%"  stop-color="#FBFAF9"/>
+            <stop offset="50%"  stop-color="#C0BEBA"/>
+            <stop offset="62%"  stop-color="#FFFFFF"/>
+            <stop offset="74%"  stop-color="#A9A9AB"/>
+            <stop offset="87%"  stop-color="#F4F2EF"/>
+            <stop offset="100%" stop-color="#C5C2BD"/>
+          </linearGradient>
+
+          <!-- Brushed-metal micro-lines. Fine enough to read as texture at
+               arm's length rather than as stripes. -->
+          <pattern id="brushed" width="7" height="7" patternUnits="userSpaceOnUse"
+                   patternTransform="rotate(31)">
+            <line x1="0" y1="0" x2="0" y2="7" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="1.1"/>
+            <line x1="3.5" y1="0" x2="3.5" y2="7" stroke="#5A5A5A" stroke-opacity="0.07" stroke-width="0.9"/>
+          </pattern>
+
+          <!-- Specular streaks: narrow and bright, the way light actually
+               catches foil, instead of one broad wash. -->
+          <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0.44">
+            <stop offset="0%"   stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="17%"  stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="24%"  stop-color="#ffffff" stop-opacity="0.95"/>
+            <stop offset="28%"  stop-color="#ffffff" stop-opacity="0.30"/>
+            <stop offset="34%"  stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="55%"  stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="61%"  stop-color="#ffffff" stop-opacity="0.82"/>
+            <stop offset="65%"  stop-color="#ffffff" stop-opacity="0.22"/>
+            <stop offset="70%"  stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="86%"  stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="91%"  stop-color="#ffffff" stop-opacity="0.66"/>
+            <stop offset="97%"  stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+
+          <!-- A second, shallower set of streaks crossing the first. Where the
+               two meet the foil sparkles instead of just being bright. -->
+          <linearGradient id="sheen2" x1="0" y1="1" x2="1" y2="0.25">
+            <stop offset="0%"   stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="34%"  stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="40%"  stop-color="#ffffff" stop-opacity="0.46"/>
+            <stop offset="46%"  stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="74%"  stop-color="#ffffff" stop-opacity="0"/>
+            <stop offset="79%"  stop-color="#ffffff" stop-opacity="0.38"/>
+            <stop offset="85%"  stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+
+          <!-- A star glint. The pinched four-point shape is what reads as
+               "catching the light"; the halo behind it keeps the point from
+               looking like a pasted-on asterisk. Drawn once, placed by <use>. -->
+          <radialGradient id="halo">
+            <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.92"/>
+            <stop offset="26%"  stop-color="#ffffff" stop-opacity="0.34"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+          <g id="glint">
+            <circle cx="0" cy="0" r="1.45" fill="url(#halo)"/>
+            <path fill="#ffffff" d="
+              M 0,-1 Q 0.11,-0.11 1,0 Q 0.11,0.11 0,1 Q -0.11,0.11 -1,0 Q -0.11,-0.11 0,-1 Z"/>
+          </g>
+
+          <!-- Broad bloom where the light source sits, so the panel glows
+               rather than just carrying stripes. -->
+          <radialGradient id="glow" cx="0.3" cy="0.22" r="0.72">
+            <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.58"/>
+            <stop offset="42%"  stop-color="#ffffff" stop-opacity="0.20"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- Edges fall away slightly, so the panel sits in the card rather
+               than floating on top of it. -->
+          <radialGradient id="depth" cx="0.5" cy="0.48" r="0.76">
+            <stop offset="52%"  stop-color="#000000" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0.15"/>
+          </radialGradient>
+          <radialGradient id="reward" cx="0.42" cy="0.5" r="0.75">
+            <stop offset="0%"   stop-color="#FF7A45"/>
+            <stop offset="60%"  stop-color="#F15A27"/>
+            <stop offset="100%" stop-color="#D94E1D"/>
+          </radialGradient>
+
+          <!-- White keeps the foil; black strokes are where a fingernail has
+               taken it off, letting the reward below show through. -->
+          <!-- White keeps the foil; black is where it has come off.
+               The opening is built from many overlapping passes rather than
+               one smooth outline, because that is how a thumbnail actually
+               takes foil off — the union gives a ragged, flaking edge that a
+               drawn blob never has. Start and end points are staggered so the
+               boundary does not scallop into a regular pattern. -->
+          <mask id="scratched">
+            <rect x="46" y="96" width="958" height="330" rx="14" fill="#fff"/>
+            <g fill="none" stroke="#000" stroke-linecap="round">
+              <path d="M214,140 Q446,124 588,148" stroke-width="26"/>
+              <path d="M146,172 Q404,150 654,176" stroke-width="40"/>
+              <path d="M112,208 Q428,184 686,212" stroke-width="48"/>
+              <path d="M158,248 Q436,226 714,248" stroke-width="50"/>
+              <path d="M106,290 Q414,270 694,292" stroke-width="52"/>
+              <path d="M140,332 Q436,312 670,334" stroke-width="46"/>
+              <path d="M176,370 Q416,352 648,372" stroke-width="38"/>
+              <path d="M236,398 Q464,386 582,400" stroke-width="24"/>
+              <!-- the scratching petering out to the right -->
+              <path d="M704,196 Q748,190 778,200" stroke-width="21"/>
+              <path d="M722,266 Q796,258 824,270" stroke-width="24"/>
+              <path d="M714,336 Q762,330 786,340" stroke-width="17"/>
+              <path d="M756,230 Q790,226 810,234" stroke-width="13"/>
+              <!-- and at the left edge -->
+              <path d="M100,232 Q122,228 142,234" stroke-width="20"/>
+              <path d="M116,314 Q140,310 164,316" stroke-width="16"/>
+            </g>
+            <!-- flakes lifting away at the boundary -->
+            <g fill="#000">
+              <ellipse cx="852" cy="214" rx="12" ry="8"/>
+              <ellipse cx="868" cy="294" rx="9" ry="7"/>
+              <ellipse cx="836" cy="350" rx="11" ry="7"/>
+              <ellipse cx="830" cy="158" rx="9" ry="6"/>
+              <ellipse cx="188" cy="146" rx="10" ry="7"/>
+              <ellipse cx="150" cy="374" rx="9" ry="6"/>
+              <ellipse cx="636" cy="410" rx="12" ry="7"/>
+              <ellipse cx="306" cy="116" rx="11" ry="6"/>
+            </g>
+            <!-- specks of foil still clinging on inside the opened area:
+                 white here means the foil stays, so these print as grey
+                 flecks over the reward. This is the detail that stops it
+                 reading as a flat orange shape. -->
+            <g fill="#fff">
+              <ellipse cx="268" cy="196" rx="7" ry="5"/>
+              <ellipse cx="332" cy="358" rx="6" ry="4"/>
+              <ellipse cx="560" cy="168" rx="5" ry="4"/>
+              <ellipse cx="618" cy="372" rx="7" ry="5"/>
+              <ellipse cx="404" cy="386" rx="5" ry="3.5"/>
+              <ellipse cx="196" cy="286" rx="6" ry="4"/>
+              <ellipse cx="672" cy="238" rx="5" ry="4"/>
+              <ellipse cx="498" cy="380" rx="4" ry="3"/>
+              <ellipse cx="240" cy="330" rx="4.5" ry="3"/>
+            </g>
+          </mask>
+        </defs>
+
+        <!-- card body + torn-off perforation notches -->
+        <rect x="0" y="0" width="1050" height="520" rx="26" fill="#570B0B"/>
+        <circle cx="0" cy="260" r="23" fill="#FFF7F4"/>
+        <circle cx="1050" cy="260" r="23" fill="#FFF7F4"/>
+
+        <text x="46" y="72" font-family="Oswald" font-weight="600" font-size="27"
+              letter-spacing="3" fill="#F79473">WELCOME TICKET</text>
+        <text x="1004" y="72" text-anchor="end" font-family="Oswald" font-weight="600"
+              font-size="27" letter-spacing="3" fill="#F79473">DOSA HUT VIP</text>
+
+        <!-- the reward, sitting under the foil -->
+        <rect x="46" y="96" width="958" height="330" rx="14" fill="url(#reward)"/>
+        <text x="428" y="296" text-anchor="middle" font-family="Oswald" font-weight="700"
+              font-size="104" letter-spacing="3" fill="#FFF7F4">YOU WON!</text>
+        <!-- residue of the foil, dragged across the reward by the scratching -->
+        <g fill="none" stroke="#FFFFFF" stroke-linecap="round" opacity="0.14">
+          <path d="M160,196 Q340,180 540,194" stroke-width="4"/>
+          <path d="M150,232 Q360,216 580,232" stroke-width="3"/>
+          <path d="M176,344 Q366,330 574,346" stroke-width="3.5"/>
+          <path d="M230,380 Q400,370 540,380" stroke-width="2.5"/>
+        </g>
+
+        <!-- the foil, with the scratches taken out of it -->
+        <g mask="url(#scratched)">
+          <rect x="46" y="96" width="958" height="330" rx="14" fill="url(#foil)"/>
+          <rect x="46" y="96" width="958" height="330" rx="14" fill="url(#brushed)"/>
+          <rect x="46" y="96" width="958" height="330" rx="14" fill="url(#glow)"/>
+          <rect x="46" y="96" width="958" height="330" rx="14" fill="url(#sheen)"/>
+          <rect x="46" y="96" width="958" height="330" rx="14" fill="url(#sheen2)"/>
+          <rect x="46" y="96" width="958" height="330" rx="14" fill="url(#depth)"/>
+          <text x="884" y="262" text-anchor="middle" font-family="Oswald" font-weight="600"
+                font-size="30" letter-spacing="5" fill="#8C8985">SCRATCH</text>
+          <g opacity="0.96">
+            <use href="#glint" transform="translate(916,164) scale(37)"/>
+            <use href="#glint" transform="translate(963,348) scale(24)"/>
+            <use href="#glint" transform="translate(858,206) scale(13)"/>
+            <use href="#glint" transform="translate(986,238) scale(10)"/>
+          </g>
+        </g>
+
+        <text x="525" y="480" text-anchor="middle" font-family="Nunito" font-weight="400"
+              font-size="27" fill="#F9ECE4" opacity="0.82">You scratch it on your phone, right after you verify.</text>
+      </svg>
+    </div>
+
+    <div class="scan">
+      <div class="qr">
+        <img src="{{QR}}" alt="QR code to join the Dosa Hut VIP Club">
+        <span>SCAN TO JOIN</span>
+      </div>
+      <ol class="steps">
+        <li><b>1</b>Scan the code</li>
+        <li><b>2</b>Enter your name and mobile</li>
+        <li><b>3</b>Verify on WhatsApp</li>
+        <li><b>4</b>Scratch and win, on the spot</li>
+      </ol>
+    </div>
+
+    <div class="prizes">
+      <p>Scratch to win one of these</p>
+      <ul>
+        <li>10% OFF</li>
+        <li>FREE MANGO LASSI</li>
+        <li>FREE GULAB JAMUN</li>
+        <li>$5 OFF</li>
+      </ul>
+    </div>
+
+    <p class="fine">
+      Thank you for joining us — one welcome ticket per mobile number, while stocks last.<br>
+      Rewards are subject to availability and may change from time to time. Terms and conditions apply.
+    </p>
+  </main>
+
+  <footer class="footer">
+    <p class="line1">Shop 6 &amp; 7/46 Gayford Street, Aspley QLD 4034 &nbsp;·&nbsp; 0466 977 674</p>
+    <p class="line2">aspley.dosahut.net.au</p>
+  </footer>
+
+</div>
+</body>
+</html>
