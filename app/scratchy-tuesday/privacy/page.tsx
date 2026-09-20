@@ -20,9 +20,9 @@ export default function ScratchyTuesdayPrivacyPage() {
         <h2>1. Information We Collect</h2>
         <p>
           When you play Scratchy Tuesday, we collect your name, Australian
-          mobile number (WhatsApp), suburb, and email address if you choose
-          to provide one. This information is given voluntarily by you
-          through the registration form before your scratch card unlocks.
+          mobile number (WhatsApp), home suburb, and email address. This
+          information is given voluntarily by you through the registration
+          form before your scratch card unlocks.
         </p>
       </section>
 
@@ -33,9 +33,8 @@ export default function ScratchyTuesdayPrivacyPage() {
           <li>Unlock and display your scratch card reward for that visit</li>
           <li>Check that a mobile number hasn&rsquo;t already played on the same Tuesday</li>
           <li>
-            Send you offers, promotions, and news via WhatsApp and, if
-            provided, email — only if you opted in to marketing at
-            registration
+            Send you offers, promotions, and news via WhatsApp and email, as
+            you agree to when you join
           </li>
         </ul>
         <p>
@@ -57,13 +56,12 @@ export default function ScratchyTuesdayPrivacyPage() {
       <section className="flex flex-col gap-3">
         <h2>4. WhatsApp &amp; Email Communications</h2>
         <p>
-          If you opt in at registration, you consent to receiving WhatsApp
-          messages and, if you provided an email address, emails from Dosa
-          Hut Sunshine Coast containing offers, promotions, and event
-          announcements. This consent is optional and separate from taking
-          part in Scratchy Tuesday. You can withdraw it at any time by
-          replying STOP to a WhatsApp message or using the unsubscribe link
-          in an email — we&rsquo;ll honour opt-out requests promptly.
+          Joining Scratchy Tuesday includes agreeing to receive WhatsApp
+          messages and emails from Dosa Hut Sunshine Coast containing
+          offers, promotions, and event announcements. You can withdraw
+          this consent at any time by replying STOP to a WhatsApp message
+          or using the unsubscribe link in an email — we&rsquo;ll honour
+          opt-out requests promptly, even though it was part of joining.
         </p>
       </section>
 

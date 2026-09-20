@@ -87,14 +87,12 @@ export default function ScratchyTuesdayTermsPage() {
       <section className="flex flex-col gap-3">
         <h2>5. WhatsApp &amp; Email Communications</h2>
         <p>
-          Providing your WhatsApp number is required to reveal your scratch
-          card. If you tick the marketing consent box, you agree to receive
+          Providing your WhatsApp number and email address is required to
+          take part in Scratchy Tuesday. By joining, you agree to receive
           promotional offers, event invitations, and seasonal announcements
-          from Dosa Hut Sunshine Coast via WhatsApp and, if provided, email.
-          This consent is optional and is never required to take part in
-          Scratchy Tuesday. Reply STOP to any WhatsApp message to
-          unsubscribe, or use the unsubscribe link in any marketing email.
-          Message and email frequency varies.
+          from Dosa Hut Sunshine Coast via WhatsApp and email. Reply STOP to
+          any WhatsApp message to unsubscribe, or use the unsubscribe link
+          in any marketing email. Message and email frequency varies.
         </p>
       </section>
 

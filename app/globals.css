@@ -348,23 +348,6 @@ html {
   }
 }
 
-/* Scratchy Tuesday hero: a subtle diagonal scratch texture behind the
-   heading, tying the hero back to the scratch-card mechanic instead of
-   reading as a generic food photo, plus a gentle pulse on the CTA badge
-   to draw the eye. Both stay understated so they read as texture/emphasis,
-   not decoration competing with the food photo. */
-.scratch-texture-overlay {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 253, 250, 0.5) 0,
-    rgba(255, 253, 250, 0.5) 1px,
-    transparent 1px,
-    transparent 10px
-  );
-  mix-blend-mode: overlay;
-  opacity: 0.35;
-}
-
 /* Tailwind has no thin-scrollbar utility, and the Craving Finder scroller
    needs one slim enough not to crowd the cards. */
 .scrollbar-thin {

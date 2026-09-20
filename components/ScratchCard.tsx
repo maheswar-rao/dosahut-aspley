@@ -9,7 +9,7 @@ const CONFETTI_MS = 3200;
 
 // Once this fraction of the foil is scratched away, the rest clears
 // automatically — nobody should have to scrape every last pixel by hand.
-const REVEAL_THRESHOLD = 0.55;
+const REVEAL_THRESHOLD = 0.5;
 // Sampling every pixel to measure scratched-away area is unnecessary and
 // slow; a stride keeps the check cheap without losing accuracy.
 const SAMPLE_STRIDE = 4 * 8;

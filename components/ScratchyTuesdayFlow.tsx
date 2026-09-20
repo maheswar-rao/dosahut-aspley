@@ -6,6 +6,8 @@ import { ScratchCard, type Outcome } from "./ScratchCard";
 import { PrimaryGlowButton } from "./PrimaryGlowButton";
 import { RewardPill } from "./RewardPill";
 import { SuburbAutocomplete } from "./SuburbAutocomplete";
+import { cx } from "@/lib/cx";
+import { EMAIL_REGEX, isValidAuMobileNational } from "@/lib/scratchy-tuesday";
 import {
   ChaiCupIcon,
   GiftBoxIcon,
@@ -40,10 +42,11 @@ type Stage = "form" | "scratch";
 
 type Details = {
   name: string;
+  // National digits only, no leading 0 — e.g. "412345678" — the "+61" is
+  // fixed UI chrome, not something the customer types.
   whatsapp: string;
   suburb: string;
   email: string;
-  marketingConsent: boolean;
 };
 
 const EMPTY_DETAILS: Details = {
@@ -51,11 +54,20 @@ const EMPTY_DETAILS: Details = {
   whatsapp: "",
   suburb: "",
   email: "",
-  marketingConsent: false,
 };
 
 const inputClass =
   "rounded-lg border border-maroon-800/20 bg-cream-0 px-4 py-2.5 text-base text-ink-900 outline-none focus:border-orange-500 lg:px-5 lg:py-3.5 lg:text-lg";
+const inputWrapperClass =
+  "flex items-center rounded-lg border border-maroon-800/20 bg-cream-0 focus-within:border-orange-500";
+const errorClass = "border-red-500";
+
+// Pairs a field's base styling with the red error outline, so the "which
+// base class + when to redden it" association lives in one place instead
+// of being re-typed at every input.
+function fieldClass(base: string, invalid: boolean) {
+  return cx(base, invalid && errorClass);
+}
 
 /**
  * The Scratchy Tuesday experience: one page explaining the offer with the
@@ -75,13 +87,32 @@ export function ScratchyTuesdayFlow() {
   const [submitting, setSubmitting] = useState(false);
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   const [alreadyPlayed, setAlreadyPlayed] = useState(false);
+  // Only turns on once the customer has tried to submit, so an untouched
+  // field isn't shown as an error before they've had a chance to fill it in.
+  const [attemptedSubmit, setAttemptedSubmit] = useState(false);
+
+  const nameInvalid = attemptedSubmit && !details.name.trim();
+  const suburbInvalid = attemptedSubmit && !details.suburb.trim();
+  const whatsappInvalid = attemptedSubmit && !isValidAuMobileNational(details.whatsapp);
+  const emailInvalid =
+    attemptedSubmit && (!details.email.trim() || !EMAIL_REGEX.test(details.email.trim()));
+  const termsInvalid = attemptedSubmit && !agreedToTerms;
 
   // A plain onClick rather than a <form onSubmit>: PrimaryGlowButton's
   // no-href variant always renders type="button", so it wouldn't trigger a
   // native form submission anyway.
   async function handleSubmitDetails() {
-    if (!details.name.trim() || !details.whatsapp.trim() || !details.suburb.trim()) {
-      setFormError("Please fill in your name, WhatsApp number and suburb.");
+    setAttemptedSubmit(true);
+    if (!details.name.trim() || !details.suburb.trim() || !details.email.trim()) {
+      setFormError("Please fill in all the required fields.");
+      return;
+    }
+    if (!EMAIL_REGEX.test(details.email.trim())) {
+      setFormError("Please enter a valid email address.");
+      return;
+    }
+    if (!isValidAuMobileNational(details.whatsapp)) {
+      setFormError("Please enter a valid Australian mobile number.");
       return;
     }
     if (!agreedToTerms) {
@@ -94,7 +125,11 @@ export function ScratchyTuesdayFlow() {
       const response = await fetch("/api/scratchy-tuesday/play", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...details, termsAccepted: agreedToTerms }),
+        body: JSON.stringify({
+          ...details,
+          whatsapp: `+61${details.whatsapp}`,
+          termsAccepted: agreedToTerms,
+        }),
       });
       let data: { error?: string; outcome?: Outcome; alreadyPlayed?: boolean };
       try {
@@ -141,7 +176,6 @@ export function ScratchyTuesdayFlow() {
             style={{ objectPosition: "50% 40%" }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-maroon-950/85 via-maroon-950/55 to-maroon-950/95" />
-          <div className="scratch-texture-overlay pointer-events-none absolute inset-0" />
 
           <div className="relative flex flex-col items-center gap-3 px-6 py-10 text-center">
             <span className="text-sm font-bold tracking-[0.2em] text-peach-400 uppercase">
@@ -219,9 +253,9 @@ export function ScratchyTuesdayFlow() {
                 Almost there
               </h2>
               <p className="text-base leading-relaxed text-ink-600">
-                A few details before your card unlocks — we&rsquo;ll only use
-                these to run Scratchy Tuesday, and to send you offers if you
-                opt in below.
+                A few details before your card unlocks — we&rsquo;ll use
+                these to run Scratchy Tuesday and to send you offers from
+                Dosa Hut Sunshine Coast.
               </p>
             </div>
 
@@ -235,17 +269,17 @@ export function ScratchyTuesdayFlow() {
                     autoComplete="name"
                     value={details.name}
                     onChange={(e) => setDetails((d) => ({ ...d, name: e.target.value }))}
-                    className={inputClass}
+                    className={fieldClass(inputClass, nameInvalid)}
                     placeholder="Your name"
                   />
                 </label>
 
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-sm font-bold text-maroon-800">Suburb *</span>
+                  <span className="text-sm font-bold text-maroon-800">Home Suburb *</span>
                   <SuburbAutocomplete
                     value={details.suburb}
                     onChange={(suburb) => setDetails((d) => ({ ...d, suburb }))}
-                    className={inputClass}
+                    className={fieldClass(inputClass, suburbInvalid)}
                     placeholder="Buddina"
                   />
                 </label>
@@ -254,25 +288,51 @@ export function ScratchyTuesdayFlow() {
                   <span className="text-sm font-bold text-maroon-800">
                     WhatsApp Number *
                   </span>
-                  <input
-                    type="tel"
-                    required
-                    autoComplete="tel"
-                    value={details.whatsapp}
-                    onChange={(e) => setDetails((d) => ({ ...d, whatsapp: e.target.value }))}
-                    className={inputClass}
-                    placeholder="04XX XXX XXX"
-                  />
+                  <div className={fieldClass(inputWrapperClass, whatsappInvalid)}>
+                    {/* Scratchy Tuesday is a dine-in promo for this one
+                        Sunshine Coast restaurant, so the country code is
+                        fixed to Australia rather than a picker. */}
+                    <span className="pl-4 text-base whitespace-nowrap text-ink-600 select-none lg:pl-5 lg:text-lg">
+                      🇦🇺 +61
+                    </span>
+                    <span aria-hidden className="h-6 w-px shrink-0 bg-maroon-800/15" />
+                    <input
+                      type="tel"
+                      inputMode="numeric"
+                      required
+                      autoComplete="tel-national"
+                      value={details.whatsapp}
+                      onChange={(e) => {
+                        // People naturally paste their number in whatever
+                        // form they have it saved — with the country code
+                        // ("61412345678"/"+61412345678"), with the local
+                        // leading 0 ("0412345678"), or as just the bare
+                        // national number — even though this field is only
+                        // the part after the fixed "+61" prefix. Strip
+                        // whichever redundant prefix is present rather than
+                        // blindly truncating from the end.
+                        let digits = e.target.value.replace(/\D/g, "");
+                        if (digits.startsWith("61") && digits.length > 9) {
+                          digits = digits.slice(2);
+                        }
+                        if (digits.startsWith("0")) digits = digits.slice(1);
+                        setDetails((d) => ({ ...d, whatsapp: digits.slice(0, 9) }));
+                      }}
+                      className="w-full bg-transparent px-2 py-2.5 text-base text-ink-900 outline-none lg:py-3.5 lg:text-lg"
+                      placeholder="4XX XXX XXX"
+                    />
+                  </div>
                 </label>
 
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-sm font-bold text-maroon-800">Email (optional)</span>
+                  <span className="text-sm font-bold text-maroon-800">Email *</span>
                   <input
                     type="email"
+                    required
                     autoComplete="email"
                     value={details.email}
                     onChange={(e) => setDetails((d) => ({ ...d, email: e.target.value }))}
-                    className={inputClass}
+                    className={fieldClass(inputClass, emailInvalid)}
                     placeholder="you@example.com"
                   />
                 </label>
@@ -283,10 +343,14 @@ export function ScratchyTuesdayFlow() {
                   type="checkbox"
                   checked={agreedToTerms}
                   onChange={(e) => setAgreedToTerms(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 shrink-0 accent-orange-500"
+                  className={cx(
+                    "mt-0.5 h-4 w-4 shrink-0 accent-orange-500",
+                    termsInvalid && "outline outline-2 outline-offset-2 outline-red-500",
+                  )}
                 />
-                <span>
-                  I agree to the{" "}
+                <span className={termsInvalid ? "text-red-600" : undefined}>
+                  By joining, I agree to receive promotional messages from Dosa
+                  Hut Sunshine Coast on WhatsApp and accept the{" "}
                   <a
                     href="/scratchy-tuesday/terms"
                     target="_blank"
@@ -303,23 +367,8 @@ export function ScratchyTuesdayFlow() {
                     className="font-semibold underline underline-offset-2 hover:text-maroon-800"
                   >
                     Privacy Policy
-                  </a>{" "}
-                  of Scratchy Tuesday. *
-                </span>
-              </label>
-
-              <label className="flex items-start gap-2.5 text-sm text-ink-600">
-                <input
-                  type="checkbox"
-                  checked={details.marketingConsent}
-                  onChange={(e) =>
-                    setDetails((d) => ({ ...d, marketingConsent: e.target.checked }))
-                  }
-                  className="mt-0.5 h-4 w-4 shrink-0 accent-orange-500"
-                />
-                <span>
-                  Yes, send me offers and news from Dosa Hut Sunshine Coast
-                  via WhatsApp or email.
+                  </a>
+                  .
                 </span>
               </label>
 

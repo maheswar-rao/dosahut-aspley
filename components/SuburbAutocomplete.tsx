@@ -113,7 +113,7 @@ export function SuburbAutocomplete({
             selectSuburb(suggestions[activeIndex]);
           }
         }}
-        className={className}
+        className={cx("w-full", className)}
         placeholder={placeholder}
         role="combobox"
         aria-expanded={showDropdown}

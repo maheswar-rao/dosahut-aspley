@@ -56,3 +56,26 @@ export function getBrisbaneDateKey(date: Date = new Date()): string {
     day: "2-digit",
   }).format(date);
 }
+
+// The one place "what is a valid Australian mobile number" is defined —
+// both the client form and the API route import this rather than each
+// hand-rolling their own regex, which previously let the two drift out of
+// sync (a 9-digit client-side check and a 10-digit server-side check that
+// happened to agree only by coincidence).
+//
+// `national` is the number as the customer types it in the form, after the
+// fixed "+61" prefix and with no leading 0 — e.g. "412345678". `normalized`
+// is normalizePhone()'s output — the domestic "0..." form used as the
+// Firestore dedup key, e.g. "0412345678".
+export function isValidAuMobileNational(national: string): boolean {
+  return /^4\d{8}$/.test(national);
+}
+
+export function isValidAuMobileNormalized(normalized: string): boolean {
+  return normalized.startsWith("0") && isValidAuMobileNational(normalized.slice(1));
+}
+
+// Same idea for email: one regex shared by the form's live validation and
+// the API route's authoritative check, instead of two copies that could
+// disagree about what counts as a validly-shaped address.
+export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

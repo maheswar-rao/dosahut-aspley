@@ -8,7 +8,9 @@ import {
 } from "@/lib/site";
 import {
   buildShuffledBatch,
+  EMAIL_REGEX,
   getBrisbaneDateKey,
+  isValidAuMobileNormalized,
   normalizePhone,
   type ScratchOutcome,
 } from "@/lib/scratchy-tuesday";
@@ -18,7 +20,6 @@ type PlayRequestBody = {
   whatsapp?: string;
   suburb?: string;
   email?: string;
-  marketingConsent?: boolean;
   termsAccepted?: boolean;
 };
 
@@ -58,20 +59,19 @@ export async function POST(request: Request) {
   const name = body.name?.trim();
   const whatsapp = body.whatsapp?.trim();
   const suburb = body.suburb?.trim();
-  const email = body.email?.trim() || null;
-  const marketingConsent = body.marketingConsent === true;
+  const email = body.email?.trim();
   const termsAccepted = body.termsAccepted === true;
 
-  if (!name || !whatsapp || !suburb) {
+  if (!name || !whatsapp || !suburb || !email) {
     return NextResponse.json(
-      { error: "Name, WhatsApp number and suburb are required." },
+      { error: "Name, WhatsApp number, suburb and email are all required." },
       { status: 400 },
     );
   }
   if (name.length > 100 || suburb.length > 100 || whatsapp.length > 30) {
     return NextResponse.json({ error: "One of the fields is too long." }, { status: 400 });
   }
-  if (email && (email.length > 200 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
+  if (email.length > 200 || !EMAIL_REGEX.test(email)) {
     return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
   }
   if (!termsAccepted) {
@@ -81,9 +81,15 @@ export async function POST(request: Request) {
     );
   }
 
+  // Scratchy Tuesday is a dine-in promotion for this one Sunshine Coast
+  // restaurant — an Australian mobile number (04XX XXX XXX) is required,
+  // not just any digit string, matching the client's own +61-prefixed input.
   const phoneKey = normalizePhone(whatsapp);
-  if (phoneKey.length < 6) {
-    return NextResponse.json({ error: "Please enter a valid WhatsApp number." }, { status: 400 });
+  if (!isValidAuMobileNormalized(phoneKey)) {
+    return NextResponse.json(
+      { error: "Please enter a valid Australian mobile number." },
+      { status: 400 },
+    );
   }
 
   // Best-effort caller identity for rate limiting — not authentication, just
@@ -147,7 +153,6 @@ export async function POST(request: Request) {
           whatsapp,
           suburb,
           email,
-          marketingConsent,
           termsAccepted,
           outcome,
           dateKey,
@@ -164,7 +169,6 @@ export async function POST(request: Request) {
         whatsapp,
         suburb,
         email,
-        marketingConsent,
         termsAccepted,
         outcome,
         dateKey,
