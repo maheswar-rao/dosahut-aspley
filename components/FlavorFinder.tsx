@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { MENU_ITEMS, type MenuItem, type SpiceLevel } from "@/lib/menu";
+import { VISIBLE_MENU_ITEMS, type MenuItem, type SpiceLevel } from "@/lib/menu";
 import { DishCard } from "./DishCard";
 
 type DietChoice = "veg" | "non-veg";
@@ -46,8 +46,9 @@ function matchesCraving(item: MenuItem, craving: string | null) {
 }
 
 /**
- * The Craving Finder runs on the full MENU_ITEMS dataset — all 123 dishes,
- * every category, including the ones with no showcase tab of their own.
+ * The Craving Finder runs on VISIBLE_MENU_ITEMS — every category, including
+ * the ones with no showcase tab of their own, minus the dishes flagged
+ * `hidden` in lib/menu.ts because they have no photograph yet.
  *
  * The diet filter is absolute: it compares `is_veg` directly and is never
  * relaxed, not even by the fallback below. Spice and craving are preferences
@@ -66,7 +67,9 @@ export function FlavorFinder() {
     () =>
       diet === null
         ? []
-        : MENU_ITEMS.filter((item) => (diet === "veg" ? item.is_veg : !item.is_veg)),
+        : VISIBLE_MENU_ITEMS.filter((item) =>
+            diet === "veg" ? item.is_veg : !item.is_veg,
+          ),
     [diet],
   );
 

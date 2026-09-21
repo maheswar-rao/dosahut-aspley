@@ -9,7 +9,11 @@ import { categorySlug, DISHES, DISH_CATEGORIES, SITE } from "@/lib/site";
 
 export function FoodShowcase() {
   const [active, setActive] = useState<(typeof DISH_CATEGORIES)[number]>(DISH_CATEGORIES[0]);
-  const visibleDishes = DISHES.filter((dish) => dish.category === active);
+  // `hidden` dishes have no photograph; showing them would put an empty
+  // slot next to cards that all carry one.
+  const visibleDishes = DISHES.filter(
+    (dish) => dish.category === active && !dish.hidden,
+  );
 
   useEffect(() => {
     function applyHash() {

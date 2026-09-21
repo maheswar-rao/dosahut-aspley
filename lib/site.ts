@@ -65,6 +65,12 @@ export type Dish = {
   spiceLevel?: SpiceLevel;
   image?: string;
   alt?: string;
+  /**
+   * Keeps the dish out of the showcase without deleting it. Set on the dishes
+   * with no photograph: an entry with no picture reads as an oversight next to
+   * the ones that have one. Delete the flag as soon as a photo lands.
+   */
+  hidden?: boolean;
 };
 
 export const DISH_CATEGORIES = [
@@ -143,6 +149,7 @@ export const DISHES: Dish[] = [
     category: "Dosa",
     name: "Mysore Masala Dosa",
     price: "$15.95",
+    hidden: true,
   },
   {
     category: "Dosa",
@@ -218,6 +225,7 @@ export const DISHES: Dish[] = [
     category: "Dosa",
     name: "Rava Chicken Dosa",
     price: "$18.95",
+    hidden: true,
   },
   {
     category: "Dosa",
@@ -337,6 +345,7 @@ export const DISHES: Dish[] = [
     category: "Biryani & More",
     name: "Prawn Roast Biryani",
     price: "$21.95",
+    hidden: true,
   },
   {
     category: "Biryani & More",
@@ -386,6 +395,7 @@ export const DISHES: Dish[] = [
     category: "Tandoori Starters",
     name: "Murgh Malai Reshmi Tikka",
     price: "$18.95",
+    hidden: true,
   },
   {
     category: "Tandoori Starters",
@@ -398,6 +408,7 @@ export const DISHES: Dish[] = [
     category: "Tandoori Starters",
     name: "Tandoori Chicken (Full)",
     price: "$23.95",
+    hidden: true,
   },
   {
     category: "Tandoori Starters",
@@ -410,11 +421,13 @@ export const DISHES: Dish[] = [
     category: "Tandoori Starters",
     name: "Mixed Tandoor Platter",
     price: "$28.95",
+    hidden: true,
   },
   {
     category: "Tandoori Starters",
     name: "Lamb Chop",
     price: "$19.95",
+    hidden: true,
   },
 
   // Vegetarian Curries
@@ -522,6 +535,8 @@ export const DISHES: Dish[] = [
     category: "Chicken Curries",
     name: "Punjabi Butter Chicken",
     price: "$21.95",
+    image: "/images/dishes/punjabi-butter-chicken.jpg",
+    alt: "Punjabi butter chicken in a creamy tomato gravy, served with naan and rice",
   },
   {
     category: "Chicken Curries",
@@ -583,6 +598,8 @@ export const DISHES: Dish[] = [
     category: "Chicken Curries",
     name: "Chicken Makhani",
     price: "$21.95",
+    image: "/images/dishes/chicken-makhani.jpg",
+    alt: "Chicken makhani in a rich buttery tomato sauce",
   },
   {
     category: "Chicken Curries",
@@ -718,6 +735,7 @@ export const DISHES: Dish[] = [
     category: "Indo-Chinese",
     name: "Schezwan Paneer",
     price: "$18.95",
+    hidden: true,
   },
   {
     category: "Indo-Chinese",

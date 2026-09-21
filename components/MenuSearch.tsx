@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { searchMenu, MENU_ITEMS } from "@/lib/menu";
+import { searchMenu, VISIBLE_MENU_ITEMS } from "@/lib/menu";
 import { DishCard } from "./DishCard";
 import { CloseIcon } from "./Icons";
 
 /**
- * Persistent menu search. Every dish in lib/menu.ts is reachable from here,
+ * Persistent menu search. Every dish the site shows is reachable from here,
  * including categories with no showcase tab of their own — chaats, omelettes,
- * noodles, fried rice, stuffed naan and the seafood curries.
+ * noodles, fried rice, stuffed naan and the seafood curries. Dishes flagged
+ * `hidden` in lib/menu.ts are not searchable, by design; the count below is
+ * therefore of the visible set, not of the whole dataset.
  */
 export function MenuSearch({ onClose }: { onClose: () => void }) {
   const [query, setQuery] = useState("");
@@ -57,7 +59,7 @@ export function MenuSearch({ onClose }: { onClose: () => void }) {
       <div className="flex-1 overflow-y-auto px-4 py-5 md:px-8">
         {query.trim() === "" ? (
           <p className="mx-auto max-w-2xl py-10 text-center text-base leading-relaxed text-ink-600">
-            Search all {MENU_ITEMS.length} dishes by name, item code, spice level or
+            Search all {VISIBLE_MENU_ITEMS.length} dishes by name, item code, spice level or
             ingredient. Every category is indexed — chaats, tandoori, curries,
             biryanis, Indo-Chinese, noodles, fried rice and breads.
           </p>

@@ -1,7 +1,10 @@
 // The complete Dosa Hut menu, transcribed from the restaurant's own dataset.
-// This is the authoritative source for search and the Craving Finder: every
-// dish is indexed here whether or not it has a photo or a showcase tab, so
-// nothing is discoverable only through the PDF.
+// This is the authoritative source for search and the Craving Finder.
+//
+// It stays complete on purpose: dishes the front end should not show are
+// marked `hidden` rather than deleted, so the record of what the kitchen
+// actually sells survives here even while the card is off the site. Read
+// VISIBLE_MENU_ITEMS, never MENU_ITEMS, when rendering.
 //
 // `is_veg` drives the green/red badge and is never inferred — it is taken
 // verbatim from the dataset.
@@ -23,6 +26,13 @@ export type MenuItem = {
    * dish's picture, which would misrepresent what arrives at the table.
    */
   image?: string;
+  /**
+   * Keeps the dish out of the Craving Finder and search without deleting it.
+   * Currently set on the ten dishes with no photograph: a card with the
+   * gradient plate was judged worse than no card at all. Delete the flag the
+   * moment a photo lands — the dish is otherwise ready to show.
+   */
+  hidden?: boolean;
 };
 
 export const MENU_ITEMS: MenuItem[] = [
@@ -123,6 +133,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "snack", "potato", "street_food"],
     description: "Deep fried bread stuffed with spiced potato",
+    hidden: true,
   },
   {
     code: "A10",
@@ -133,6 +144,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["vegetarian", "potato", "snack"],
     description: "Spiced potato balls deep fried in gram flour batter",
+    hidden: true,
   },
   {
     code: "C1",
@@ -418,6 +430,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["vegetarian", "indo_chinese", "paneer", "schezwan", "spicy"],
     description: "Paneer pieces stir-fried with schezwan sauce",
+    hidden: true,
   },
   {
     code: "F7",
@@ -637,6 +650,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["vegetarian", "dosa", "mysore", "spicy_chutney", "potato"],
     description: "Filled with spicy red chutney & potato filling, topped with gunpowder",
+    hidden: true,
   },
   {
     code: "I9",
@@ -768,6 +782,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["non_vegetarian", "chicken", "creamy", "malai", "starter"],
     description: "Tender chicken marinated in cream, cheese, & aromatic spices, cooked in tandoor",
+    hidden: true,
   },
   {
     code: "D7",
@@ -789,6 +804,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "chicken", "tandoori", "full_portion"],
     description: "Tender chicken marinated in yoghurt and spices, roasted in a clay oven",
+    hidden: true,
   },
   {
     code: "D9",
@@ -810,6 +826,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "platter", "chicken", "lamb", "tandoori"],
     description: "Delectable mix of tandoori appetizers cooked in traditional clay oven",
+    hidden: true,
   },
   {
     code: "D11",
@@ -820,6 +837,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "lamb", "chops", "tandoori"],
     description: "Succulent Lamb marinated in spiced yoghurt and gently roasted in a clay oven",
+    hidden: true,
   },
   {
     code: "E15",
@@ -1270,6 +1288,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "seafood", "prawn", "biryani"],
     description: "Succulent prawns roasted and layered with basmati rice",
+    hidden: true,
   },
   {
     code: "H21",
@@ -1335,6 +1354,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "rava_dosa", "chicken"],
     description: "Semolina crepe spread with marinated mince chicken",
+    hidden: true,
   },
   {
     code: "I20",
@@ -1377,6 +1397,13 @@ export const MENU_CATEGORIES: string[] = Array.from(
 );
 
 /**
+ * What the site renders. Everything the Craving Finder and search read comes
+ * from here, so hiding a dish is a one-line change in the data rather than a
+ * filter repeated in each component.
+ */
+export const VISIBLE_MENU_ITEMS: MenuItem[] = MENU_ITEMS.filter((item) => !item.hidden);
+
+/**
  * Free-text search across code, name, category, description and tags.
  *
  * Ranked rather than filtered flat: an exact code match comes first, then a
@@ -1388,7 +1415,7 @@ export function searchMenu(query: string, limit = 24): MenuItem[] {
   if (!q) return [];
   const terms = q.split(/\s+/);
 
-  const scored = MENU_ITEMS.map((item) => {
+  const scored = VISIBLE_MENU_ITEMS.map((item) => {
     const name = item.name.toLowerCase();
     const code = item.code.toLowerCase();
     const haystack = [
