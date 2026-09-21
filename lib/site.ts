@@ -101,7 +101,7 @@ export const DISHES: Dish[] = [
     name: "Plain Dosa",
     price: "$8.95",
     image: "/images/dosa_images/Plain_Dosa_1.jpg",
-    alt: "Plain dosa served on a round plate with coconut chutney, tomato chutney and sambar",
+    alt: "Folded golden plain dosa on a pale plate beside coconut chutney and sambar",
   },
   {
     category: "Dosa",
