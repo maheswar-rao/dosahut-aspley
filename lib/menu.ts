@@ -573,7 +573,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "dosa", "south_indian", "crispy"],
     description: "Crisp & golden brown crepe served with chutney & sambar",
-    image: "/images/dosa_images/Plain_Dosa_1.jpg",
+    image: "/images/dishes/plain-dosa.jpg",
   },
   {
     code: "I2",
@@ -1224,7 +1224,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "chicken", "biryani", "classic", "hyderabadi"],
     description: "Classic chicken pieces layered with basmati rice, served with mirchi ka salan & raita",
-    image: "/images/biryani_images/Chicken_Dum_Biryani_8.jpg",
+    image: "/images/dishes/chicken-dum-biryani.jpg",
   },
   {
     code: "H12",

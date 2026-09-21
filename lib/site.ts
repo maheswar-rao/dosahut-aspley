@@ -100,7 +100,7 @@ export const DISHES: Dish[] = [
     category: "Dosa",
     name: "Plain Dosa",
     price: "$8.95",
-    image: "/images/dosa_images/Plain_Dosa_1.jpg",
+    image: "/images/dishes/plain-dosa.jpg",
     alt: "Folded golden plain dosa on a pale plate beside coconut chutney and sambar",
   },
   {
@@ -303,7 +303,7 @@ export const DISHES: Dish[] = [
     category: "Biryani & More",
     name: "Chicken Dum Biryani",
     price: "$19.95",
-    image: "/images/biryani_images/Chicken_Dum_Biryani_8.jpg",
+    image: "/images/dishes/chicken-dum-biryani.jpg",
     alt: "Chicken dum biryani with roast drumsticks, served in a hammered copper handi",
   },
   {
