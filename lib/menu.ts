@@ -79,6 +79,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "south_indian", "combo"],
     description: "Served with chutney & sambar",
+    image: "/images/dishes/idly-and-vada.jpg",
   },
   {
     code: "A6",
@@ -493,6 +494,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["vegetarian", "fried_rice", "noodles", "schezwan", "spicy", "combo"],
     description: "Rice, noodles, and crispy vegetables tossed in a fiery Schezwan sauce",
+    image: "/images/dishes/triple-schezwan-veg-fried-rice.jpg",
   },
   {
     code: "H1",
@@ -1169,6 +1171,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["non_vegetarian", "chicken", "schezwan", "fried_rice", "noodles", "spicy"],
     description: "Spicy dish combining rice, noodles, and chicken in Schezwan sauce",
+    image: "/images/dishes/triple-schezwan-chicken-fried-rice.jpg",
   },
   {
     code: "H9",
@@ -1353,6 +1356,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "naan", "bread", "keema"],
     description: "Flatbread stuffed with spiced minced meat",
+    image: "/images/dishes/keema-naan.jpg",
   },
   {
     code: "J9",
