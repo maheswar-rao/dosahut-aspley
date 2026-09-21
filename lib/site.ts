@@ -304,7 +304,7 @@ export const DISHES: Dish[] = [
     name: "Chicken Dum Biryani",
     price: "$19.95",
     image: "/images/biryani_images/Chicken_Dum_Biryani_8.jpg",
-    alt: "Chicken dum biryani thali with raita, curry, onion and lemon",
+    alt: "Chicken dum biryani with roast drumsticks, served in a hammered copper handi",
   },
   {
     category: "Biryani & More",
