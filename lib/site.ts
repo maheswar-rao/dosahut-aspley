@@ -535,8 +535,10 @@ export const DISHES: Dish[] = [
     category: "Chicken Curries",
     name: "Punjabi Butter Chicken",
     price: "$21.95",
-    image: "/images/dishes/punjabi-butter-chicken.jpg",
-    alt: "Punjabi butter chicken in a creamy tomato gravy, served with naan and rice",
+    // The only photo on hand for this was byte-identical to Butter Chicken's,
+    // so the two cards sat side by side showing the same picture. Hidden until
+    // there is a photo of the Punjabi version itself.
+    hidden: true,
   },
   {
     category: "Chicken Curries",
@@ -598,8 +600,9 @@ export const DISHES: Dish[] = [
     category: "Chicken Curries",
     name: "Chicken Makhani",
     price: "$21.95",
-    image: "/images/dishes/chicken-makhani.jpg",
-    alt: "Chicken makhani in a rich buttery tomato sauce",
+    // Same story as Punjabi Butter Chicken above: the only photo available was
+    // byte-identical to Mango Chicken's. Hidden until there is one of its own.
+    hidden: true,
   },
   {
     category: "Chicken Curries",

@@ -859,7 +859,9 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "chicken", "bone_in", "punjabi", "curry"],
     description: "Bone chicken pieces cooked in a rich tomato sauce, flavored with butter, cream, & spices",
-    image: "/images/dishes/punjabi-butter-chicken.jpg",
+    // Shared a byte-identical photo with E15 Butter Chicken; hidden rather than
+    // show the same picture under two names.
+    hidden: true,
   },
   {
     code: "E17",
