@@ -119,35 +119,62 @@ export function HeroVideo() {
       if (!v) return;
       // Set on the element as well as in JSX: older iOS Safari reads
       // webkit-playsinline, and the muted *property* is honoured where the
-      // attribute alone is sometimes not.
+      // attribute alone is sometimes not. defaultMuted is what writes the
+      // muted *content attribute*, which is the one the autoplay policy reads.
       v.muted = true;
       v.defaultMuted = true;
+      v.playsInline = true;
       v.setAttribute("muted", "");
       v.setAttribute("playsinline", "true");
       v.setAttribute("webkit-playsinline", "true");
       v.removeAttribute("controls");
+      // Nothing here is castable, and the AirPlay affordance is another
+      // control Safari can paint over a decorative background.
+      v.disableRemotePlayback = true;
+      v.setAttribute("x-webkit-airplay", "deny");
       v.play().catch(() => {});
     });
   }, []);
 
   // Last resort: iOS Low Power Mode, desktop data savers and strict autoplay
-  // settings all refuse the initial play() outright. The first touch or scroll
-  // satisfies them, so retry silently on that rather than showing a play
-  // button the visitor has to find.
+  // settings all refuse the initial play() outright. A gesture satisfies them,
+  // so retry silently rather than showing a play button the visitor has to
+  // find.
+  //
+  // The listeners are deliberately not `once`. A single gesture can arrive
+  // while playback is still refused — Low Power Mode is the common case — and
+  // a one-shot listener is spent on that attempt, leaving nothing to recover
+  // on. play() against an already-playing element resolves without doing
+  // anything, so re-arming costs nothing.
+  //
+  // visibilitychange and pageshow matter for Safari specifically: it pauses
+  // media in a backgrounded tab, and restores pages from the back/forward
+  // cache in a paused state, in both cases without firing anything the
+  // sequencing effect above would hear.
   useEffect(() => {
     function retry() {
-      refs.current[stepRef.current]?.play().catch(() => {});
+      const v = refs.current[stepRef.current];
+      if (!v || (!v.paused && !v.ended)) return;
+      v.muted = true;
+      v.play().catch(() => {});
     }
-    const opts = { once: true, passive: true } as const;
-    window.addEventListener("touchstart", retry, opts);
-    window.addEventListener("scroll", retry, opts);
-    window.addEventListener("pointerdown", retry, opts);
-    window.addEventListener("keydown", retry, { once: true });
+    function onVisible() {
+      if (document.visibilityState === "visible") retry();
+    }
+    const passive = { passive: true } as const;
+    window.addEventListener("touchstart", retry, passive);
+    window.addEventListener("scroll", retry, passive);
+    window.addEventListener("pointerdown", retry, passive);
+    window.addEventListener("keydown", retry);
+    window.addEventListener("pageshow", retry);
+    document.addEventListener("visibilitychange", onVisible);
     return () => {
       window.removeEventListener("touchstart", retry);
       window.removeEventListener("scroll", retry);
       window.removeEventListener("pointerdown", retry);
       window.removeEventListener("keydown", retry);
+      window.removeEventListener("pageshow", retry);
+      document.removeEventListener("visibilitychange", onVisible);
     };
   }, []);
 
@@ -171,6 +198,8 @@ export function HeroVideo() {
           {...{ "webkit-playsinline": "true" }}
           controls={false}
           disablePictureInPicture
+          disableRemotePlayback
+          {...{ "x-webkit-airplay": "deny" }}
           tabIndex={-1}
           preload={i === 0 ? "auto" : "none"}
           onPlaying={() => markPlaying(i)}
