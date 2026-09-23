@@ -6,6 +6,7 @@ import { OurStory } from "@/components/OurStory";
 import { WhyUs } from "@/components/WhyUs";
 import { FlavorFinder } from "@/components/FlavorFinder";
 import { Catering } from "@/components/Catering";
+import { Gallery } from "@/components/Gallery";
 import { Location } from "@/components/Location";
 import { Footer } from "@/components/Footer";
 
@@ -20,6 +21,7 @@ export default function Home() {
       <WhyUs />
       <FlavorFinder />
       <Catering />
+      <Gallery />
       <Location />
       <Footer />
     </main>
