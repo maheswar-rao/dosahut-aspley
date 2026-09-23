@@ -287,7 +287,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "dal", "creamy", "rich", "curry"],
     description: "Rich & creamy north Indian dish made from whole black lentils & kidney beans, simmered with butter, cream, & spices",
-    image: "/images/curry_images/Dal_Makhani_(V)_27.jpg",
+    image: "/images/dishes/dal-makhani.png",
   },
   {
     code: "E3",
@@ -309,7 +309,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["vegetarian", "paneer", "curry", "creamy", "gravy"],
     description: "Clay oven marinated & grilled paneer cubes simmered in a rich, creamy, & spiced tomato based gravy",
-    image: "/images/curry_images/Paneer_Tikka_Masala_(V)_29.jpg",
+    image: "/images/dishes/paneer-tikka-masala.jpg",
   },
   {
     code: "E5",
@@ -320,7 +320,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "paneer", "butter", "creamy", "curry"],
     description: "Creamy and mildly spiced soft paneer cubes cooked in a rich tomato-based gravy with butter & cream",
-    image: "/images/curry_images/Paneer_Butter_Masala_(V)_30.jpg",
+    image: "/images/dishes/paneer-butter-masala.jpg",
   },
   {
     code: "E6",
@@ -331,7 +331,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "paneer", "spinach", "healthy", "curry"],
     description: "Soft paneer cubes simmered in a creamy, spiced spinach (palak) gravy",
-    image: "/images/curry_images/Palak_Paneer_(V)_31.jpg",
+    image: "/images/dishes/palak-paneer.jpg",
   },
   {
     code: "E7",
@@ -342,7 +342,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["vegetarian", "paneer", "mint", "black_pepper", "curry"],
     description: "Fragrant Indian dish with paneer cubes cooked in a refreshing mint & black pepper spiced gravy",
-    image: "/images/curry_images/Paneer_Pudina_Kali_Mirch_(V)_32.jpg",
+    image: "/images/dishes/paneer-pudina-kali-mirch.jpg",
   },
   {
     code: "E10",
@@ -364,7 +364,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["vegetarian", "spicy", "mixed_veg", "kolhapuri", "curry"],
     description: "Spicy and flavorful mixed vegetable curry from Kolhapur, Maharashtra, made with OTM gravy & aromatic spices",
-    image: "/images/curry_images/Vegetable_Kohlapuri_(V)_34.jpg",
+    image: "/images/dishes/veg-kolhapuri.png",
   },
   {
     code: "E14",
@@ -452,7 +452,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["vegetarian", "indo_chinese", "paneer", "chilli", "spicy"],
     description: "Paneer cubes stir-fried with bell peppers & onions in a spicy, tangy sauce",
-    image: "/images/indo_chinese_images/Chilli_Paneer_(V)_6.jpg",
+    image: "/images/dishes/chilli-paneer.jpg",
   },
   {
     code: "F9",
@@ -529,7 +529,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["vegetarian", "biryani", "cauliflower", "spicy", "fusion"],
     description: "Fusion dish combining flavorful biryani rice with spicy, deep-fried cauliflower florets",
-    image: "/images/biryani_images/Gobi_65_Biryani_(V)_2.jpg",
+    image: "/images/dishes/gobi-65-biryani.jpg",
   },
   {
     code: "H4",
@@ -595,7 +595,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["vegetarian", "dosa", "potato", "classic", "south_indian"],
     description: "Crepe topped with aloo masala served with chutney and sambar",
-    image: "/images/dosa_images/Masala_Dosa_3.jpg",
+    image: "/images/dishes/masala-dosa.jpg",
   },
   {
     code: "I4",
@@ -683,7 +683,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["vegetarian", "rava_dosa", "crispy", "semolina"],
     description: "Thin, crispy crepe made with semolina rice flour served with chutney & sambar",
-    image: "/images/dosa_images/Rava_Plain_Dosa_14.jpg",
+    image: "/images/dishes/rava-plain-dosa.jpg",
   },
   {
     code: "I16",
@@ -815,7 +815,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["non_vegetarian", "lamb", "kebab", "tandoori", "spicy"],
     description: "Minced lamb seasoned with aromatic spices, molded onto skewers, and clay oven cooked",
-    image: "/images/tandoor_starters_images/Lamb_Seekh_Kebab_6.jpg",
+    image: "/images/dishes/seekh-kebab-lamb.jpg",
   },
   {
     code: "D10",
@@ -848,7 +848,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "mild",
     dietary_tags: ["non_vegetarian", "chicken", "butter_chicken", "creamy", "curry"],
     description: "Tender pieces of chicken cooked in a rich tomato-based sauce with butter, cream, & spices",
-    image: "/images/curry_images/Butter_Chicken_1.jpg",
+    image: "/images/dishes/butter-chicken.png",
   },
   {
     code: "E16",
@@ -916,7 +916,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "chicken", "tikka_masala", "curry"],
     description: "Clay oven chicken cooked in a creamy tomato-based sauce with aromatic spices",
-    image: "/images/curry_images/Chicken_Tikka_Masala_6.jpg",
+    image: "/images/dishes/chicken-tikka-masala.jpg",
   },
   {
     code: "E22",
@@ -949,7 +949,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "lamb", "rogan_josh", "kashmiri", "curry"],
     description: "Fragrant Kashmiri curry featuring tender lamb simmered in a spiced yoghurt & tomato sauce",
-    image: "/images/curry_images/Lamb_Rogan_Josh_13.jpg",
+    image: "/images/dishes/lamb-roganjosh.png",
   },
   {
     code: "E31",
@@ -971,7 +971,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "goat", "mutton", "curry"],
     description: "Tender mutton pieces simmered in a rich, spiced gravy",
-    image: "/images/curry_images/Goat_Curry_19.jpg",
+    image: "/images/dishes/goat-curry.png",
   },
   {
     code: "E35",
@@ -1037,7 +1037,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["non_vegetarian", "chicken", "65", "spicy", "indo_chinese"],
     description: "Spicy and crispy South Indian appetizer made with deep-fried chicken",
-    image: "/images/indo_chinese_images/Chicken_65_9.jpg",
+    image: "/images/dishes/chicken-65.jpg",
   },
   {
     code: "F14",
@@ -1048,7 +1048,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["non_vegetarian", "chicken", "chilli", "spicy", "indo_chinese"],
     description: "Chicken pieces stir-fried with bell peppers, onions, & a spicy, tangy sauce",
-    image: "/images/indo_chinese_images/Chilli_Chicken_10.jpg",
+    image: "/images/dishes/chilli-chicken-dry-gravy.jpg",
   },
   {
     code: "F15",
@@ -1213,7 +1213,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "spicy",
     dietary_tags: ["non_vegetarian", "egg", "65", "biryani", "spicy"],
     description: "Spicy egg 65 combined with basmati rice, served with mirchi ka salan & raita",
-    image: "/images/biryani_images/Egg_65_Biryani_7.jpg",
+    image: "/images/dishes/egg-65-biryani.jpg",
   },
   {
     code: "H11",
@@ -1312,7 +1312,7 @@ export const MENU_ITEMS: MenuItem[] = [
     spice_level: "medium",
     dietary_tags: ["non_vegetarian", "dosa", "chicken", "minced_meat"],
     description: "Filled with marinated chicken mince & served with chutney & sambar",
-    image: "/images/dosa_images/Chicken_Dosa_9.jpg",
+    image: "/images/dishes/chicken-dosa.jpg",
   },
   {
     code: "I11",

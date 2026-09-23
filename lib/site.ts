@@ -114,7 +114,7 @@ export const DISHES: Dish[] = [
     category: "Dosa",
     name: "Masala Dosa",
     price: "$15.95",
-    image: "/images/dosa_images/Masala_Dosa_3.jpg",
+    image: "/images/dishes/masala-dosa.jpg",
     alt: "Crisp masala dosa served with a plate of accompaniments",
   },
   {
@@ -162,7 +162,7 @@ export const DISHES: Dish[] = [
     category: "Dosa",
     name: "Chicken Dosa",
     price: "$16.95",
-    image: "/images/dosa_images/Chicken_Dosa_9.jpg",
+    image: "/images/dishes/chicken-dosa.jpg",
     alt: "Chicken Dosa at Dosa Hut Aspley",
   },
   {
@@ -197,7 +197,7 @@ export const DISHES: Dish[] = [
     category: "Dosa",
     name: "Rava Plain Dosa",
     price: "$15.95",
-    image: "/images/dosa_images/Rava_Plain_Dosa_14.jpg",
+    image: "/images/dishes/rava-plain-dosa.jpg",
     alt: "Rava Plain Dosa at Dosa Hut Aspley",
   },
   {
@@ -261,7 +261,7 @@ export const DISHES: Dish[] = [
     category: "Biryani & More",
     name: "Gobi 65 Biryani",
     price: "$17.95",
-    image: "/images/biryani_images/Gobi_65_Biryani_(V)_2.jpg",
+    image: "/images/dishes/gobi-65-biryani.jpg",
     alt: "Gobi 65 Biryani at Dosa Hut Aspley",
   },
   {
@@ -296,7 +296,7 @@ export const DISHES: Dish[] = [
     category: "Biryani & More",
     name: "Egg 65 Biryani",
     price: "$18.95",
-    image: "/images/biryani_images/Egg_65_Biryani_7.jpg",
+    image: "/images/dishes/egg-65-biryani.jpg",
     alt: "Egg 65 Biryani at Dosa Hut Aspley",
   },
   {
@@ -414,7 +414,7 @@ export const DISHES: Dish[] = [
     category: "Tandoori Starters",
     name: "Seekh Kebab (Lamb)",
     price: "$19.95",
-    image: "/images/tandoor_starters_images/Lamb_Seekh_Kebab_6.jpg",
+    image: "/images/dishes/seekh-kebab-lamb.jpg",
     alt: "Seekh Kebab (Lamb) at Dosa Hut Aspley",
   },
   {
@@ -442,7 +442,7 @@ export const DISHES: Dish[] = [
     category: "Vegetarian Curries",
     name: "Dal Makhani",
     price: "$19.95",
-    image: "/images/curry_images/Dal_Makhani_(V)_27.jpg",
+    image: "/images/dishes/dal-makhani.png",
     alt: "Creamy dal makhani made with black lentils and kidney beans",
   },
   {
@@ -456,28 +456,28 @@ export const DISHES: Dish[] = [
     category: "Vegetarian Curries",
     name: "Paneer Tikka Masala",
     price: "$19.95",
-    image: "/images/curry_images/Paneer_Tikka_Masala_(V)_29.jpg",
+    image: "/images/dishes/paneer-tikka-masala.jpg",
     alt: "Paneer Tikka Masala at Dosa Hut Aspley",
   },
   {
     category: "Vegetarian Curries",
     name: "Paneer Butter Masala",
     price: "$19.95",
-    image: "/images/curry_images/Paneer_Butter_Masala_(V)_30.jpg",
+    image: "/images/dishes/paneer-butter-masala.jpg",
     alt: "Paneer butter masala in a rich tomato gravy",
   },
   {
     category: "Vegetarian Curries",
     name: "Palak Paneer",
     price: "$19.95",
-    image: "/images/curry_images/Palak_Paneer_(V)_31.jpg",
+    image: "/images/dishes/palak-paneer.jpg",
     alt: "Palak paneer with soft paneer cubes in a spiced spinach gravy",
   },
   {
     category: "Vegetarian Curries",
     name: "Paneer Pudina Kali Mirch",
     price: "$19.95",
-    image: "/images/curry_images/Paneer_Pudina_Kali_Mirch_(V)_32.jpg",
+    image: "/images/dishes/paneer-pudina-kali-mirch.jpg",
     alt: "Paneer Pudina Kali Mirch at Dosa Hut Aspley",
   },
   {
@@ -491,7 +491,7 @@ export const DISHES: Dish[] = [
     category: "Vegetarian Curries",
     name: "Veg Kolhapuri",
     price: "$19.95",
-    image: "/images/curry_images/Vegetable_Kohlapuri_(V)_34.jpg",
+    image: "/images/dishes/veg-kolhapuri.png",
     alt: "Veg Kolhapuri at Dosa Hut Aspley",
   },
   {
@@ -528,7 +528,7 @@ export const DISHES: Dish[] = [
     category: "Chicken Curries",
     name: "Butter Chicken",
     price: "$21.95",
-    image: "/images/curry_images/Butter_Chicken_1.jpg",
+    image: "/images/dishes/butter-chicken.png",
     alt: "Creamy butter chicken curry garnished with mint",
   },
   {
@@ -572,7 +572,7 @@ export const DISHES: Dish[] = [
     category: "Chicken Curries",
     name: "Chicken Tikka Masala",
     price: "$21.95",
-    image: "/images/curry_images/Chicken_Tikka_Masala_6.jpg",
+    image: "/images/dishes/chicken-tikka-masala.jpg",
     alt: "Chicken tikka masala in a creamy tomato gravy",
   },
   {
@@ -593,7 +593,7 @@ export const DISHES: Dish[] = [
     category: "Chicken Curries",
     name: "Chicken Korma",
     price: "$21.95",
-    image: "/images/curry_images/Chicken_Korma_10.jpg",
+    image: "/images/dishes/chicken-korma.jpg",
     alt: "Chicken Korma at Dosa Hut Aspley",
   },
   {
@@ -624,7 +624,7 @@ export const DISHES: Dish[] = [
     category: "Goat & Lamb Curry",
     name: "Lamb Roganjosh",
     price: "$22.95",
-    image: "/images/curry_images/Lamb_Rogan_Josh_13.jpg",
+    image: "/images/dishes/lamb-roganjosh.png",
     alt: "Lamb Roganjosh at Dosa Hut Aspley",
   },
   {
@@ -659,7 +659,7 @@ export const DISHES: Dish[] = [
     category: "Goat & Lamb Curry",
     name: "Goat Curry",
     price: "$23.95",
-    image: "/images/curry_images/Goat_Curry_19.jpg",
+    image: "/images/dishes/goat-curry.png",
     alt: "Thick, dark, richly spiced goat curry",
   },
   {
@@ -751,7 +751,7 @@ export const DISHES: Dish[] = [
     category: "Indo-Chinese",
     name: "Chilli Paneer",
     price: "$18.95",
-    image: "/images/indo_chinese_images/Chilli_Paneer_(V)_6.jpg",
+    image: "/images/dishes/chilli-paneer.jpg",
     alt: "Chilli Paneer at Dosa Hut Aspley",
   },
   {
@@ -772,7 +772,7 @@ export const DISHES: Dish[] = [
     category: "Indo-Chinese",
     name: "Chicken 65",
     price: "$19.95",
-    image: "/images/indo_chinese_images/Chicken_65_9.jpg",
+    image: "/images/dishes/chicken-65.jpg",
     alt: "Crispy Chicken 65 tossed with curry leaves, garlic and dry chillies",
   },
   {
