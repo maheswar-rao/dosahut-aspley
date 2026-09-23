@@ -110,9 +110,6 @@ export function Gallery() {
             className="font-heading min-h-[44px] rounded-full border border-maroon-800/25 px-7 py-3 text-base font-bold tracking-wider text-maroon-700 uppercase transition-colors hover:border-orange-500 hover:text-orange-500"
           >
             See more
-            <span className="ml-2 font-normal normal-case text-ink-600">
-              {remaining} left
-            </span>
           </button>
         )}
       </div>
