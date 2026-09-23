@@ -5,17 +5,18 @@ import Image from "next/image";
 import { GALLERY_PHOTOS } from "@/lib/gallery";
 import { CloseIcon } from "./Icons";
 
-// A first screenful, then the rest on request. Fifty-six tiles is four rows on
-// a desktop but twenty-eight on a phone, which buries the Location section
-// under a scroll nobody asked for.
-const INITIAL_COUNT = 12;
+// One desktop row to begin with, and one more per click. Revealing all
+// fifty-six at once is four rows on a desktop but twenty-eight on a phone,
+// which buries the Location section under a scroll nobody asked for.
+const INITIAL_COUNT = 4;
+const ROW_STEP = 4;
 
 export function Gallery() {
-  const [expanded, setExpanded] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
   const [lightbox, setLightbox] = useState<number | null>(null);
 
-  const shown = expanded ? GALLERY_PHOTOS : GALLERY_PHOTOS.slice(0, INITIAL_COUNT);
-  const remaining = GALLERY_PHOTOS.length - INITIAL_COUNT;
+  const shown = GALLERY_PHOTOS.slice(0, visibleCount);
+  const remaining = GALLERY_PHOTOS.length - visibleCount;
 
   const step = useCallback((delta: number) => {
     setLightbox((current) =>
@@ -98,13 +99,20 @@ export function Gallery() {
           ))}
         </ul>
 
-        {!expanded && remaining > 0 && (
+        {remaining > 0 && (
           <button
             type="button"
-            onClick={() => setExpanded(true)}
+            onClick={() =>
+              setVisibleCount((count) =>
+                Math.min(count + ROW_STEP, GALLERY_PHOTOS.length),
+              )
+            }
             className="font-heading min-h-[44px] rounded-full border border-maroon-800/25 px-7 py-3 text-base font-bold tracking-wider text-maroon-700 uppercase transition-colors hover:border-orange-500 hover:text-orange-500"
           >
-            Show all {GALLERY_PHOTOS.length} photos
+            See more
+            <span className="ml-2 font-normal normal-case text-ink-600">
+              {remaining} left
+            </span>
           </button>
         )}
       </div>
