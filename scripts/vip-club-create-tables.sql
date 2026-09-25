@@ -65,6 +65,9 @@ CREATE TABLE IF NOT EXISTS vip_rewards (
     status       VARCHAR(50) DEFAULT 'issued',
 
     issued_at    BIGINT NOT NULL,
+    -- Nullable with no default: /vip/terms says welcome gifts do not expire.
+    -- Redemption honours a value where one is set. See scripts/add-reward-expiry.sql.
+    expires_at   TIMESTAMP WITH TIME ZONE,
     redeemed_at  BIGINT,
     redeemed_by  VARCHAR(100),
     created_at   TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
