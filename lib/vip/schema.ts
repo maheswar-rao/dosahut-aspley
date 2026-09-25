@@ -59,6 +59,15 @@ export const vipRewards = pgTable(
     status: varchar("status", { length: 50 }).default("issued"),
 
     issuedAt: bigint("issued_at", { mode: "number" }).notNull(),
+    /**
+     * Nullable, and with no default, on purpose. The published terms at
+     * /vip/terms state that welcome gifts do not expire, so every gift issued
+     * so far has no expiry and must keep none. The column exists so an expiry
+     * CAN be set per reward if the business later decides to run one — and
+     * redemption already honours it — but switching it on for new gifts means
+     * updating those terms first. See the note in lib/vip/redeem.ts.
+     */
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
     redeemedAt: bigint("redeemed_at", { mode: "number" }),
     redeemedBy: varchar("redeemed_by", { length: 100 }),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),

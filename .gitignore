@@ -44,3 +44,4 @@ next-env.d.ts
 # poster preview renders (regenerable via design/vip-poster/preview.mjs)
 design/vip-poster/preview-*.html
 design/vip-poster/shot-*.png
+.pglite*

@@ -44,6 +44,7 @@ const CREATE_TABLE_SQL = `
       type         VARCHAR(100) NOT NULL,
       status       VARCHAR(50) DEFAULT 'issued',
       issued_at    BIGINT NOT NULL,
+      expires_at   TIMESTAMP WITH TIME ZONE,
       redeemed_at  BIGINT,
       redeemed_by  VARCHAR(100),
       created_at   TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
