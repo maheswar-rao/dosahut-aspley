@@ -221,3 +221,18 @@ html {
   background-color: rgba(58, 13, 13, 0.35);
   border-radius: 9999px;
 }
+
+/* VIP page. The join form, the benefits and the reward cards all sit on the
+   same measure, so the width is set once here rather than repeated on each
+   section. Selection is re-tinted because the default blue is the one colour
+   on the page that belongs to no part of the brand. */
+.vip-content-wrapper {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 48rem;
+}
+
+.vip-content-wrapper ::selection {
+  background: var(--color-orange-500);
+  color: var(--color-cream-0);
+}

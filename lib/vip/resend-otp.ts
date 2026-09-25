@@ -28,6 +28,7 @@ export type SendResult =
   | { ok: false; error: string };
 
 import { maskEmail } from "./mobile";
+import { SITE } from "@/lib/site";
 
 const TIMEOUT_MS = 10_000;
 
@@ -47,7 +48,7 @@ function template(firstName: string, code: string): string {
                     font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
         <tr><td style="background:${MAROON};padding:26px 28px;text-align:center;">
           <div style="color:${CREAM};font-size:20px;font-weight:700;letter-spacing:.5px;">
-            Dosa Hut Aspley
+            ${SITE.name}
           </div>
           <div style="color:${ORANGE};font-size:12px;font-weight:700;
                       letter-spacing:3px;text-transform:uppercase;margin-top:6px;">
@@ -77,7 +78,7 @@ function template(firstName: string, code: string): string {
 
         <tr><td style="background:${MAROON};padding:16px 28px;text-align:center;">
           <p style="margin:0;color:${CREAM};font-size:12px;">
-            Shop 6 &amp; 7/46 Gayford Street, Aspley QLD 4034 &nbsp;&middot;&nbsp; 0466 977 674
+            ${SITE.addressFull} &nbsp;&middot;&nbsp; ${SITE.phoneDisplay}
           </p>
         </td></tr>
       </table>
@@ -125,7 +126,7 @@ export async function sendOtp(
         html: template(firstName, code),
         text:
           `Hi ${firstName},\n\n` +
-          `Your Dosa Hut Aspley VIP Club verification code is ${code}.\n` +
+          `Your ${SITE.name} VIP Club verification code is ${code}.\n` +
           `It expires in 5 minutes.\n\n` +
           `If you did not ask to join, you can ignore this email.`,
       }),

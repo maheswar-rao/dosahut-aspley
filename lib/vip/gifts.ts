@@ -1,5 +1,7 @@
 import { randomBytes } from "node:crypto";
 
+import { SITE } from "@/lib/site";
+
 /**
  * The welcome rewards a new member can scratch. `type` is what goes in
  * vip_rewards.type; the rest is what the customer and the counter staff see.
@@ -22,7 +24,7 @@ export const REWARDS: Reward[] = [
     type: "10_percent_off",
     prefix: "TENOFF",
     label: "10% off your next order",
-    detail: "Valid on dine-in and takeaway at Dosa Hut Aspley.",
+    detail: `Valid on dine-in and takeaway at ${SITE.name}.`,
     weight: 40,
   },
   {

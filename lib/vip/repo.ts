@@ -162,7 +162,14 @@ export type RegisterOutcome =
 export async function registerOrReturn(
   name: string,
   phone: string,
-  email: string | null,
+  /**
+   * Required, not nullable: every caller reaches this through
+   * /api/auth/verify-otp, which rejects a missing or malformed address before
+   * it gets here. The column itself stays nullable because members migrated in
+   * from the old contact list arrived with phone and name only — see
+   * vip_members.email in lib/vip/schema.ts.
+   */
+  email: string,
 ): Promise<RegisterOutcome> {
   const db = await getDb();
   const now = Date.now();

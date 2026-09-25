@@ -52,7 +52,9 @@ export async function POST(request: Request) {
   if (name.length < 2 || name.length > 255) {
     return Response.json({ message: "Please enter your name." }, { status: 400 });
   }
-  // vip_members.email is NOT NULL, so a member cannot be created without one.
+  // Required by this route, not by the column: vip_members.email is nullable
+  // so that members migrated in from the old contact list can exist without
+  // one. Anyone joining through this flow must supply a real address.
   if (!email || !isPlausibleEmail(email)) {
     return Response.json(
       { message: "Please enter a valid email address." },
