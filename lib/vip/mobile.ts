@@ -31,3 +31,28 @@ export function maskEmail(email: string): string {
   const keep = local.length <= 2 ? 1 : 2;
   return `${local.slice(0, keep)}${"•".repeat(Math.max(local.length - keep, 1))}${domain}`;
 }
+
+/**
+ * Reduce anything a customer types or pastes to the nine local digits after
+ * the country code: 0412 345 678, 412345678, +61 412 345 678 and
+ * 61412345678 all become "412345678".
+ *
+ * Deliberately lenient and non-validating — it runs on every keystroke, so it
+ * has to leave a half-typed number alone rather than fight the person typing
+ * it. normaliseMobile() above is still the authority on whether a number is
+ * real, and the server calls it again regardless.
+ */
+export function toLocalMobile(input: string): string {
+  const digits = input.replace(/\D/g, "");
+  const local = digits
+    .replace(/^61/, "")
+    .replace(/^0/, "");
+  return local.slice(0, 9);
+}
+
+/** Group the local part for display: 412345678 -> "412 345 678". */
+export function formatLocalMobile(local: string): string {
+  const digits = local.replace(/\D/g, "").slice(0, 9);
+  const parts = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 9)];
+  return parts.filter(Boolean).join(" ");
+}
