@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS vip_branch_visits (
     branch_name   VARCHAR(100) NOT NULL,
     visit_count   INT DEFAULT 1,
     last_visit_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT vip_branch_visits_member_branch_key UNIQUE (member_phone, branch_name),
+    CONSTRAINT vip_branch_visits_member_phone_branch_name_key UNIQUE (member_phone, branch_name),
     CONSTRAINT vip_branch_visits_member_fk FOREIGN KEY (member_phone, branch_name)
         REFERENCES vip_members(phone, home_branch) ON DELETE CASCADE
 );

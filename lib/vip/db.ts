@@ -95,8 +95,8 @@ const CREATE_TABLE_SQL = `
 
   CREATE INDEX IF NOT EXISTS idx_members_phone ON vip_members(phone);
   CREATE INDEX IF NOT EXISTS idx_rewards_code  ON vip_rewards(reward_code);
-  CREATE INDEX IF NOT EXISTS idx_rewards_phone ON vip_rewards(member_phone);
-  CREATE INDEX IF NOT EXISTS idx_otp_phone     ON vip_otp_codes(phone);
+  CREATE INDEX IF NOT EXISTS idx_rewards_phone ON vip_rewards(member_phone, branch_name);
+  CREATE INDEX IF NOT EXISTS idx_otp_phone     ON vip_otp_codes(phone, branch_name);
 
   -- The one-welcome-reward-per-member guarantee, enforced by the database
   -- rather than by a check in the route. Without it two taps arriving together
