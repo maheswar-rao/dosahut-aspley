@@ -80,5 +80,13 @@ function randomToken(length: number): string {
 export const makeRewardCode = (reward: Reward) =>
   `${reward.prefix}-${randomToken(6)}`;
 
-/** e.g. SC-4M2X — what staff key in to mark it redeemed. */
-export const makeStaffCode = () => `SC-${randomToken(4)}`;
+/**
+ * e.g. AS-4M2X — what staff key in to mark a reward redeemed. The prefix is
+ * the branch, so a code read out over the phone says which store issued it.
+ *
+ * Only NEW codes get this prefix. Rewards already issued keep the SC- codes
+ * they were given, and redemption matches the whole string against
+ * reward_code or staff_code, so both forms keep working — see
+ * lib/vip/redeem.ts. Nothing needs backfilling.
+ */
+export const makeStaffCode = () => `AS-${randomToken(4)}`;

@@ -64,7 +64,8 @@ export function verifyStaffPin(input: string): boolean {
 // ---------------------------------------------------------------------------
 
 /**
- * Codes are `PREFIX-TOKEN`, e.g. LASSI-HKTLMN or SC-4M2X.
+ * Codes are `PREFIX-TOKEN`, e.g. LASSI-HKTLMN or AS-4M2X (older staff codes
+ * carry the SC- prefix and are still matched).
  *
  * Two different rules apply to the two halves, and conflating them corrupts
  * valid codes:
