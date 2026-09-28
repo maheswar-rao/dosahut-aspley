@@ -28,7 +28,7 @@ export async function findByPhone(phone: string): Promise<VipMember | null> {
   const [row] = await db
     .select()
     .from(vipMembers)
-    .where(eq(vipMembers.phone, phone))
+    .where(and(eq(vipMembers.phone, phone), eq(vipMembers.homeBranch, BRANCH)))
     .limit(1);
   return row ?? null;
 }
@@ -49,7 +49,7 @@ export async function recordReturnVisit(phone: string): Promise<VipMember | null
       lastBranch: BRANCH,
       updatedAt: new Date(),
     })
-    .where(eq(vipMembers.phone, phone))
+    .where(and(eq(vipMembers.phone, phone), eq(vipMembers.homeBranch, BRANCH)))
     .returning();
   return row ?? null;
 }
@@ -79,6 +79,7 @@ export async function queueWhatsApp(phone: string): Promise<void> {
   const now = Date.now();
   await db.insert(vipWaLogs).values({
     memberPhone: phone,
+    branchName: BRANCH,
     attempts: 1,
     status: "queued",
     queuedAt: now,
@@ -96,6 +97,7 @@ export async function findWelcomeReward(
     .where(
       and(
         eq(vipRewards.memberPhone, phone),
+        eq(vipRewards.branchName, BRANCH),
         inArray(vipRewards.type, WELCOME_REWARD_TYPES),
       ),
     )
@@ -126,6 +128,7 @@ export async function issueWelcomeReward(
     .insert(vipRewards)
     .values({
       memberPhone: phone,
+      branchName: BRANCH,
       rewardCode: makeRewardCode(reward),
       staffCode: makeStaffCode(),
       type: reward.type,
@@ -189,7 +192,11 @@ export async function registerOrReturn(
         lastBranch: BRANCH,
         lastSeenAt: now,
       })
-      .onConflictDoNothing({ target: vipMembers.phone })
+      .onConflictDoNothing({
+        // The member's identity is the pair, not the number — phone alone is
+        // no longer unique, so Postgres rejects it as a conflict target.
+        target: [vipMembers.phone, vipMembers.homeBranch],
+      })
       .returning();
 
     if (!member) return null;
@@ -199,6 +206,7 @@ export async function registerOrReturn(
       .insert(vipRewards)
       .values({
         memberPhone: phone,
+        branchName: BRANCH,
         rewardCode: makeRewardCode(pick),
         staffCode: makeStaffCode(),
         type: pick.type,

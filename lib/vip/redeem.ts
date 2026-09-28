@@ -125,6 +125,9 @@ export async function redeemReward(code: string): Promise<RedeemResult> {
     .where(
       and(
         or(eq(vipRewards.rewardCode, code), eq(vipRewards.staffCode, code)),
+        // Scoped to this branch: the database is shared, so without it an
+        // Aspley till could redeem a gift another branch issued.
+        eq(vipRewards.branchName, BRANCH),
         eq(vipRewards.status, ISSUED),
         or(isNull(vipRewards.expiresAt), gt(vipRewards.expiresAt, new Date())),
       ),
@@ -145,7 +148,12 @@ export async function redeemReward(code: string): Promise<RedeemResult> {
   const [existing] = await db
     .select()
     .from(vipRewards)
-    .where(or(eq(vipRewards.rewardCode, code), eq(vipRewards.staffCode, code)))
+    .where(
+      and(
+        or(eq(vipRewards.rewardCode, code), eq(vipRewards.staffCode, code)),
+        eq(vipRewards.branchName, BRANCH),
+      ),
+    )
     .limit(1);
 
   if (!existing) return { ok: false, reason: "not_found" };

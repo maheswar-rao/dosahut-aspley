@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS vip_members (
     name          VARCHAR(255) NOT NULL,
     -- Normalised AU E.164, e.g. +61412345678. Every write must normalise
     -- first, or the same person registers twice under two spellings.
-    phone         VARCHAR(20) UNIQUE NOT NULL,
+    phone         VARCHAR(20) NOT NULL,
     -- Nullable on purpose. Customers migrated in from the existing contact
     -- list arrive with phone and name only; requiring an email here would
     -- make them impossible to load.
@@ -37,7 +37,11 @@ CREATE TABLE IF NOT EXISTS vip_members (
     -- Deliberately not a timestamptz; do not change one without the other.
     last_seen_at  BIGINT,
     created_at    TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at    TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    updated_at    TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    -- Identity is the pair, not the number. The database is shared across
+    -- branches, so the same mobile can hold a separate membership at each.
+    -- Every child foreign key points at this pair, and cannot exist without it.
+    CONSTRAINT vip_members_phone_home_branch_key UNIQUE (phone, home_branch)
 );
 
 -- -----------------------------------------------------------------------------
@@ -47,7 +51,8 @@ CREATE TABLE IF NOT EXISTS vip_members (
 -- -----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS vip_rewards (
     id           SERIAL PRIMARY KEY,
-    member_phone VARCHAR(20) REFERENCES vip_members(phone) ON DELETE CASCADE,
+    member_phone VARCHAR(20) NOT NULL,
+    branch_name  VARCHAR(100) NOT NULL DEFAULT 'aspley',
     reward_code  VARCHAR(100) UNIQUE NOT NULL,
     staff_code   VARCHAR(100),
     -- 'mango_lassi' | '10_percent_off' | 'free_gulab_jamun' | '5_dollar_off'
@@ -61,7 +66,9 @@ CREATE TABLE IF NOT EXISTS vip_rewards (
     expires_at   TIMESTAMP WITH TIME ZONE,
     redeemed_at  BIGINT,
     redeemed_by  VARCHAR(100),
-    created_at   TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    created_at   TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT vip_rewards_member_fk FOREIGN KEY (member_phone, branch_name)
+        REFERENCES vip_members(phone, home_branch) ON DELETE CASCADE
 );
 
 -- -----------------------------------------------------------------------------
@@ -71,11 +78,13 @@ CREATE TABLE IF NOT EXISTS vip_rewards (
 -- -----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS vip_branch_visits (
     id            SERIAL PRIMARY KEY,
-    member_phone  VARCHAR(20) REFERENCES vip_members(phone) ON DELETE CASCADE,
+    member_phone  VARCHAR(20) NOT NULL,
     branch_name   VARCHAR(100) NOT NULL,
     visit_count   INT DEFAULT 1,
     last_visit_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT vip_branch_visits_member_branch_key UNIQUE (member_phone, branch_name)
+    CONSTRAINT vip_branch_visits_member_branch_key UNIQUE (member_phone, branch_name),
+    CONSTRAINT vip_branch_visits_member_fk FOREIGN KEY (member_phone, branch_name)
+        REFERENCES vip_members(phone, home_branch) ON DELETE CASCADE
 );
 
 -- -----------------------------------------------------------------------------
@@ -86,13 +95,16 @@ CREATE TABLE IF NOT EXISTS vip_branch_visits (
 -- -----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS vip_wa_logs (
     id              SERIAL PRIMARY KEY,
-    member_phone    VARCHAR(20) REFERENCES vip_members(phone) ON DELETE CASCADE,
+    member_phone    VARCHAR(20) NOT NULL,
+    branch_name     VARCHAR(100) NOT NULL DEFAULT 'aspley',
     attempts        INT DEFAULT 1,
     -- 'queued' | 'sent' | 'failed'
     status          VARCHAR(50) DEFAULT 'queued',
     queued_at       BIGINT,
     last_attempt_at BIGINT,
-    created_at      TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    created_at      TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT vip_wa_logs_member_fk FOREIGN KEY (member_phone, branch_name)
+        REFERENCES vip_members(phone, home_branch) ON DELETE CASCADE
 );
 
 -- -----------------------------------------------------------------------------
@@ -105,7 +117,8 @@ CREATE TABLE IF NOT EXISTS vip_wa_logs (
 -- -----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS vip_otp_codes (
     id         SERIAL PRIMARY KEY,
-    phone      VARCHAR(20) NOT NULL,
+    phone       VARCHAR(20) NOT NULL,
+    branch_name VARCHAR(100) NOT NULL DEFAULT 'aspley',
     otp_hash   VARCHAR(255) NOT NULL,
     attempts   INT DEFAULT 0,
     expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -141,10 +154,10 @@ CREATE INDEX IF NOT EXISTS idx_members_phone ON vip_members(phone);
 CREATE INDEX IF NOT EXISTS idx_rewards_code  ON vip_rewards(reward_code);
 
 -- This one earns its keep: looking a member's rewards up by phone.
-CREATE INDEX IF NOT EXISTS idx_rewards_phone ON vip_rewards(member_phone);
+CREATE INDEX IF NOT EXISTS idx_rewards_phone ON vip_rewards(member_phone, branch_name);
 
 -- Newest-code-first lookups during verification.
-CREATE INDEX IF NOT EXISTS idx_otp_phone     ON vip_otp_codes(phone);
+CREATE INDEX IF NOT EXISTS idx_otp_phone     ON vip_otp_codes(phone, branch_name);
 
 -- -----------------------------------------------------------------------------
 -- The one-welcome-reward-per-member guarantee
@@ -157,7 +170,7 @@ CREATE INDEX IF NOT EXISTS idx_otp_phone     ON vip_otp_codes(phone);
 -- types can still be issued to the same member freely.
 -- -----------------------------------------------------------------------------
 CREATE UNIQUE INDEX IF NOT EXISTS idx_rewards_one_welcome_per_member
-    ON vip_rewards (member_phone)
+    ON vip_rewards (member_phone, branch_name)
     WHERE type IN ('10_percent_off', 'mango_lassi', 'free_gulab_jamun', '5_dollar_off');
 
 COMMIT;
