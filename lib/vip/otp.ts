@@ -1,7 +1,8 @@
 import { createHash, randomInt, timingSafeEqual } from "node:crypto";
 import { and, desc, eq, lt } from "drizzle-orm";
 import { getDb } from "./db";
-import { BRANCH, vipOtpCodes } from "./schema";
+import { vipOtpCodes } from "./schema";
+import { branch } from "./branch";
 
 /**
  * OTP issue and verify, keyed on the normalised phone.
@@ -21,7 +22,7 @@ async function latestFor(phone: string) {
   const [row] = await db
     .select()
     .from(vipOtpCodes)
-    .where(and(eq(vipOtpCodes.phone, phone), eq(vipOtpCodes.branchName, BRANCH)))
+    .where(and(eq(vipOtpCodes.phone, phone), eq(vipOtpCodes.branchName, branch())))
     .orderBy(desc(vipOtpCodes.id))
     .limit(1);
   return row ?? null;
@@ -31,7 +32,7 @@ async function clearFor(phone: string) {
   const db = await getDb();
   await db
     .delete(vipOtpCodes)
-    .where(and(eq(vipOtpCodes.phone, phone), eq(vipOtpCodes.branchName, BRANCH)));
+    .where(and(eq(vipOtpCodes.phone, phone), eq(vipOtpCodes.branchName, branch())));
 }
 
 export type IssueResult =
@@ -65,7 +66,7 @@ export async function issueOtp(phone: string): Promise<IssueResult> {
   const db = await getDb();
   await db.insert(vipOtpCodes).values({
     phone,
-    branchName: BRANCH,
+    branchName: branch(),
     otpHash: hash(phone, code),
     attempts: 0,
     expiresAt: new Date(now + TTL_MS),

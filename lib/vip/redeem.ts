@@ -2,7 +2,8 @@ import { createHash, timingSafeEqual } from "node:crypto";
 import { and, eq, gt, isNull, or } from "drizzle-orm";
 import { getDb } from "./db";
 import { rewardByType } from "./gifts";
-import { BRANCH, vipRewards } from "./schema";
+import { vipRewards } from "./schema";
+import { branch } from "./branch";
 
 /**
  * Staff-side redemption: the counter marks a customer's welcome gift as used.
@@ -122,13 +123,13 @@ export async function redeemReward(code: string): Promise<RedeemResult> {
 
   const [claimed] = await db
     .update(vipRewards)
-    .set({ status: REDEEMED, redeemedAt: now, redeemedBy: BRANCH })
+    .set({ status: REDEEMED, redeemedAt: now, redeemedBy: branch() })
     .where(
       and(
         or(eq(vipRewards.rewardCode, code), eq(vipRewards.staffCode, code)),
         // Scoped to this branch: the database is shared, so without it an
         // Aspley till could redeem a gift another branch issued.
-        eq(vipRewards.branchName, BRANCH),
+        eq(vipRewards.branchName, branch()),
         eq(vipRewards.status, ISSUED),
         or(isNull(vipRewards.expiresAt), gt(vipRewards.expiresAt, new Date())),
       ),
@@ -152,7 +153,7 @@ export async function redeemReward(code: string): Promise<RedeemResult> {
     .where(
       and(
         or(eq(vipRewards.rewardCode, code), eq(vipRewards.staffCode, code)),
-        eq(vipRewards.branchName, BRANCH),
+        eq(vipRewards.branchName, branch()),
       ),
     )
     .limit(1);

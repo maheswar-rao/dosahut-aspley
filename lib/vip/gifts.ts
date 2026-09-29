@@ -1,5 +1,7 @@
 import { randomBytes } from "node:crypto";
 
+import { branchPrefix } from "./branch";
+
 import { SITE } from "@/lib/site";
 
 /**
@@ -81,12 +83,14 @@ export const makeRewardCode = (reward: Reward) =>
   `${reward.prefix}-${randomToken(6)}`;
 
 /**
- * e.g. AS-4M2X — what staff key in to mark a reward redeemed. The prefix is
- * the branch, so a code read out over the phone says which store issued it.
+ * e.g. AS-4M2X at Aspley, SC-4M2X at Sunshine Coast — what staff key in to
+ * mark a reward redeemed. The prefix is the active branch, so a code read out
+ * over the phone says which restaurant issued it.
  *
- * Only NEW codes get this prefix. Rewards already issued keep the SC- codes
- * they were given, and redemption matches the whole string against
- * reward_code or staff_code, so both forms keep working — see
- * lib/vip/redeem.ts. Nothing needs backfilling.
+ * Derived from the environment at call time, not from a constant, so one build
+ * deployed as either branch stamps the right prefix. Codes already issued keep
+ * whatever prefix they were given: redemption matches the whole string against
+ * reward_code or staff_code and has no prefix rule, so every historical code
+ * keeps working and nothing needs backfilling. See lib/vip/redeem.ts.
  */
-export const makeStaffCode = () => `AS-${randomToken(4)}`;
+export const makeStaffCode = () => `${branchPrefix()}-${randomToken(4)}`;

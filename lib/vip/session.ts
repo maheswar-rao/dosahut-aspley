@@ -1,6 +1,8 @@
 import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 
+import { branch } from "./branch";
+
 /**
  * A signed cookie proving "this browser completed the OTP for member N".
  * Without it, /api/vip/scratch-card would hand a gift to anyone who POSTs a
@@ -46,8 +48,23 @@ const secret = () => {
   return devSecret;
 };
 
+/**
+ * The active branch is mixed into what is signed, but is NOT stored in the
+ * cookie.
+ *
+ * The database is shared, so a `dh_vip` cookie minted by one branch would
+ * otherwise verify at another and hand that browser a session against a member
+ * row it has no claim to. Binding the branch to the signature makes such a
+ * cookie fail verification instead — while leaving the stored format
+ * unchanged, so nothing downstream has to parse an extra field.
+ *
+ * Existing sessions stop verifying the first time a deployment picks this up.
+ * They last an hour, so the cost is that a handful of people re-enter a code.
+ */
 const sign = (payload: string) =>
-  createHmac("sha256", secret()).update(payload).digest("base64url");
+  createHmac("sha256", secret())
+    .update(`${branch()}.${payload}`)
+    .digest("base64url");
 
 export async function createSession(memberId: number, phone: string) {
   const payload = `${memberId}.${phone}.${Date.now() + MAX_AGE_SECONDS * 1000}`;
