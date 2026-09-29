@@ -2,7 +2,8 @@ import { createHash, timingSafeEqual } from "node:crypto";
 import { and, eq, gt, isNull, or } from "drizzle-orm";
 import { getDb } from "./db";
 import { rewardByType } from "./gifts";
-import { BRANCH, vipRewards } from "./schema";
+import { vipRewards } from "./schema";
+import { branch } from "./branch";
 
 /**
  * Staff-side redemption: the counter marks a customer's welcome gift as used.
@@ -64,7 +65,8 @@ export function verifyStaffPin(input: string): boolean {
 // ---------------------------------------------------------------------------
 
 /**
- * Codes are `PREFIX-TOKEN`, e.g. LASSI-HKTLMN or SC-4M2X.
+ * Codes are `PREFIX-TOKEN`, e.g. LASSI-HKTLMN or AS-4M2X (older staff codes
+ * carry the SC- prefix and are still matched).
  *
  * Two different rules apply to the two halves, and conflating them corrupts
  * valid codes:
@@ -121,10 +123,13 @@ export async function redeemReward(code: string): Promise<RedeemResult> {
 
   const [claimed] = await db
     .update(vipRewards)
-    .set({ status: REDEEMED, redeemedAt: now, redeemedBy: BRANCH })
+    .set({ status: REDEEMED, redeemedAt: now, redeemedBy: branch() })
     .where(
       and(
         or(eq(vipRewards.rewardCode, code), eq(vipRewards.staffCode, code)),
+        // Scoped to this branch: the database is shared, so without it a till
+        // at one branch could redeem a gift another branch issued.
+        eq(vipRewards.branchName, branch()),
         eq(vipRewards.status, ISSUED),
         or(isNull(vipRewards.expiresAt), gt(vipRewards.expiresAt, new Date())),
       ),
@@ -145,7 +150,12 @@ export async function redeemReward(code: string): Promise<RedeemResult> {
   const [existing] = await db
     .select()
     .from(vipRewards)
-    .where(or(eq(vipRewards.rewardCode, code), eq(vipRewards.staffCode, code)))
+    .where(
+      and(
+        or(eq(vipRewards.rewardCode, code), eq(vipRewards.staffCode, code)),
+        eq(vipRewards.branchName, branch()),
+      ),
+    )
     .limit(1);
 
   if (!existing) return { ok: false, reason: "not_found" };

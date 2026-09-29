@@ -12,6 +12,25 @@ import { queueWhatsApp } from "./repo";
  * WATI_BEARER_TOKEN and WATI_TEMPLATE_NAME, and move the log row to 'sent'.
  * Nothing above this module needs to change.
  */
+/**
+ * Whether WhatsApp delivery can be attempted at all.
+ *
+ * lib/vip/notify.ts calls this per request rather than at import time, so
+ * switching WhatsApp on is adding the variables to the deployment and nothing
+ * else — no code change, no redeploy of a different build.
+ *
+ * All three are required together: an endpoint with no token, or a token with
+ * no template, would fail at send time having already told the customer a code
+ * was on its way.
+ */
+export function isWatiConfigured(): boolean {
+  return Boolean(
+    process.env.WATI_API_ENDPOINT?.trim() &&
+      process.env.WATI_BEARER_TOKEN?.trim() &&
+      process.env.WATI_TEMPLATE_NAME?.trim(),
+  );
+}
+
 export type SendResult =
   | { ok: true; delivered: boolean; queued: boolean; channel: "email" | "whatsapp"; sentTo: string }
   | { ok: false; error: string };

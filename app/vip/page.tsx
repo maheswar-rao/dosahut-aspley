@@ -6,7 +6,7 @@ import VipRewardCards from "@/components/vip/VipRewardCards";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `Join Aspley VIP Club | ${SITE.name}`,
+  title: `Join the VIP Club | ${SITE.name}`,
   description: `Sign up for ${SITE.name} VIP Club to get exclusive rewards, instant gifts, and special offers.`,
 };
 

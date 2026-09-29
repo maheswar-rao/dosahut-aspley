@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { branchLabel } from "@/lib/vip/branch";
+
 /**
  * The Dosa Hut wordmark with the branch badge beneath it.
  *
@@ -25,10 +27,15 @@ import Image from "next/image";
 const RIBBON_LEFT = "4.86%";
 const RIBBON_WIDTH = "77.83%";
 
-/** The one place the branch name is set for the lockup. */
-const BRANCH_BADGE = "Aspley";
+/**
+ * The badge text comes from the active branch, so one build renders "Aspley"
+ * or "Sunshine Coast" according to VIP_BRANCH. Safe here because this is a
+ * server component — VIP_BRANCH is not NEXT_PUBLIC_, so a client component
+ * could not read it.
+ */
 
 export function BrandLockup({ className = "" }: { className?: string }) {
+  const badge = branchLabel();
   return (
     // items-stretch, not items-center: the column takes the image's width, so
     // the badge's percentages below resolve against the lockup rather than
@@ -54,13 +61,13 @@ export function BrandLockup({ className = "" }: { className?: string }) {
         style={{ marginLeft: RIBBON_LEFT, width: RIBBON_WIDTH }}
         className="font-heading -mt-[5px] block bg-orange-500 py-[0.28em] text-center text-[0.7rem] leading-none font-bold tracking-[0.3em] text-cream-0 uppercase italic sm:-mt-[7px] sm:text-[0.82rem]"
       >
-        {BRANCH_BADGE}
+        {badge}
       </span>
 
       {/* The badge is decorative — the branch name is already in the heading
           and the page title — but the wordmark alone is not the full brand
           name, so the accessible name is assembled here. */}
-      <span className="sr-only">Dosa Hut {BRANCH_BADGE}</span>
+      <span className="sr-only">Dosa Hut {badge}</span>
     </div>
   );
 }

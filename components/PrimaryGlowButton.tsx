@@ -18,6 +18,7 @@ export function PrimaryGlowButton({
   className = "",
   external = true,
   full = false,
+  disabled = false,
 }: {
   href?: string;
   onClick?: () => void;
@@ -25,12 +26,24 @@ export function PrimaryGlowButton({
   className?: string;
   external?: boolean;
   full?: boolean;
+  /**
+   * Only meaningful on the <button> branch below. An anchor has no disabled
+   * attribute — setting one would render a link that still navigates while
+   * looking inert — so a disabled CTA that also carries an href is left
+   * enabled rather than silently half-working.
+   */
+  disabled?: boolean;
 }) {
   const classes = `${PRIMARY_GLOW_CLASSES} ${full ? "w-full" : ""} ${className}`;
 
   if (!href) {
     return (
-      <button type="button" onClick={onClick} className={classes}>
+      <button
+        type="button"
+        onClick={onClick}
+        disabled={disabled}
+        className={`${classes} disabled:opacity-60`}
+      >
         {children}
       </button>
     );

@@ -853,3 +853,45 @@ export const FEATURES: Feature[] = [
     description: "Fresh local ingredients blended with authentic desi spices.",
   },
 ];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Scratchy Tuesday — PLACEHOLDERS, NOT ASPLEY CONFIGURATION
+//
+// The Scratchy Tuesday feature arrived in this repository with merge 5422041
+// and reads its promotion config from this file. The real values lived in the
+// Sunshine Coast lib/site.ts, which is not part of the Aspley branch and is
+// not reproduced here.
+//
+// These exports exist so the project compiles. They are deliberately empty:
+// inventing a reward pool and its odds would put made-up promotional terms in
+// front of customers, and /scratchy-tuesday/terms renders these numbers
+// verbatim as the published odds.
+//
+// Before this feature is used at Aspley, either fill these in with the
+// promotion the business has actually agreed, or remove the Scratchy Tuesday
+// files from this repository. See the note on runtime behaviour below.
+//
+// Shape note: `name` and `weight` are what the consuming code reads —
+// buildShuffledBatch() in lib/scratchy-tuesday.ts expands each reward by its
+// weight, and the terms page prints "<name> — <weight> in 100".
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type ScratchReward = {
+  /** Shown on the card and in the terms. */
+  name: string;
+  /** Chances in 100. The weights plus SCRATCHY_TUESDAY_LOSE_WEIGHT make 100. */
+  weight: number;
+};
+
+export const SCRATCHY_TUESDAY_REWARDS: ScratchReward[] = [];
+
+export const SCRATCHY_TUESDAY_LOSE_MESSAGE = "Better luck next time!";
+
+/**
+ * With no rewards and a lose weight of 0, buildShuffledBatch() returns an
+ * EMPTY deck, so the /scratchy-tuesday play route has nothing to deal and will
+ * fail at runtime. That is intentional for a placeholder — the feature should
+ * not quietly appear to work with no prizes behind it — but it means the
+ * route must not be linked or advertised until this is configured.
+ */
+export const SCRATCHY_TUESDAY_LOSE_WEIGHT = 0;

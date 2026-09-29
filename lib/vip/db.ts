@@ -22,7 +22,7 @@ const CREATE_TABLE_SQL = `
   CREATE TABLE IF NOT EXISTS vip_members (
       id            SERIAL PRIMARY KEY,
       name          VARCHAR(255) NOT NULL,
-      phone         VARCHAR(20) UNIQUE NOT NULL,
+      phone         VARCHAR(20) NOT NULL,
       email         VARCHAR(255),
       suburb        VARCHAR(255),
       source        VARCHAR(100) DEFAULT 'vip_join',
@@ -33,12 +33,16 @@ const CREATE_TABLE_SQL = `
       last_branch   VARCHAR(100) DEFAULT 'aspley',
       last_seen_at  BIGINT,
       created_at    TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-      updated_at    TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      updated_at    TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      -- Identity is the pair, not the number: the same mobile can hold a
+      -- membership at more than one branch. Every child key points here.
+      CONSTRAINT vip_members_phone_home_branch_key UNIQUE (phone, home_branch)
   );
 
   CREATE TABLE IF NOT EXISTS vip_rewards (
       id           SERIAL PRIMARY KEY,
-      member_phone VARCHAR(20) REFERENCES vip_members(phone) ON DELETE CASCADE,
+      member_phone VARCHAR(20) NOT NULL,
+      branch_name  VARCHAR(100) NOT NULL DEFAULT 'aspley',
       reward_code  VARCHAR(100) UNIQUE NOT NULL,
       staff_code   VARCHAR(100),
       type         VARCHAR(100) NOT NULL,
@@ -47,26 +51,33 @@ const CREATE_TABLE_SQL = `
       expires_at   TIMESTAMP WITH TIME ZONE,
       redeemed_at  BIGINT,
       redeemed_by  VARCHAR(100),
-      created_at   TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      created_at   TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      CONSTRAINT vip_rewards_member_fk FOREIGN KEY (member_phone, branch_name)
+          REFERENCES vip_members(phone, home_branch) ON DELETE CASCADE
   );
 
   CREATE TABLE IF NOT EXISTS vip_branch_visits (
       id            SERIAL PRIMARY KEY,
-      member_phone  VARCHAR(20) REFERENCES vip_members(phone) ON DELETE CASCADE,
+      member_phone  VARCHAR(20) NOT NULL,
       branch_name   VARCHAR(100) NOT NULL,
       visit_count   INT DEFAULT 1,
       last_visit_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-      UNIQUE(member_phone, branch_name)
+      UNIQUE(member_phone, branch_name),
+      CONSTRAINT vip_branch_visits_member_fk FOREIGN KEY (member_phone, branch_name)
+          REFERENCES vip_members(phone, home_branch) ON DELETE CASCADE
   );
 
   CREATE TABLE IF NOT EXISTS vip_wa_logs (
       id              SERIAL PRIMARY KEY,
-      member_phone    VARCHAR(20) REFERENCES vip_members(phone) ON DELETE CASCADE,
+      member_phone    VARCHAR(20) NOT NULL,
+      branch_name     VARCHAR(100) NOT NULL DEFAULT 'aspley',
       attempts        INT DEFAULT 1,
       status          VARCHAR(50) DEFAULT 'queued',
       queued_at       BIGINT,
       last_attempt_at BIGINT,
-      created_at      TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      created_at      TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      CONSTRAINT vip_wa_logs_member_fk FOREIGN KEY (member_phone, branch_name)
+          REFERENCES vip_members(phone, home_branch) ON DELETE CASCADE
   );
 
   -- Not one of the four tables in the brief. Verification needs somewhere the
@@ -74,7 +85,8 @@ const CREATE_TABLE_SQL = `
   -- the verify land on different instances.
   CREATE TABLE IF NOT EXISTS vip_otp_codes (
       id         SERIAL PRIMARY KEY,
-      phone      VARCHAR(20) NOT NULL,
+      phone       VARCHAR(20) NOT NULL,
+      branch_name VARCHAR(100) NOT NULL DEFAULT 'aspley',
       otp_hash   VARCHAR(255) NOT NULL,
       attempts   INT DEFAULT 0,
       expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -83,15 +95,15 @@ const CREATE_TABLE_SQL = `
 
   CREATE INDEX IF NOT EXISTS idx_members_phone ON vip_members(phone);
   CREATE INDEX IF NOT EXISTS idx_rewards_code  ON vip_rewards(reward_code);
-  CREATE INDEX IF NOT EXISTS idx_rewards_phone ON vip_rewards(member_phone);
-  CREATE INDEX IF NOT EXISTS idx_otp_phone     ON vip_otp_codes(phone);
+  CREATE INDEX IF NOT EXISTS idx_rewards_phone ON vip_rewards(member_phone, branch_name);
+  CREATE INDEX IF NOT EXISTS idx_otp_phone     ON vip_otp_codes(phone, branch_name);
 
   -- The one-welcome-reward-per-member guarantee, enforced by the database
   -- rather than by a check in the route. Without it two taps arriving together
   -- both pass the check and both write a reward. Scoped to the welcome types,
   -- so later promotional rewards of other types are unaffected.
   CREATE UNIQUE INDEX IF NOT EXISTS idx_rewards_one_welcome_per_member
-      ON vip_rewards(member_phone)
+      ON vip_rewards(member_phone, branch_name)
       WHERE type IN ('10_percent_off','mango_lassi','free_gulab_jamun','5_dollar_off');
 `;
 
