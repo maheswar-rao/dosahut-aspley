@@ -5,9 +5,9 @@ import { formatLocalMobile, toLocalMobile } from "@/lib/vip/mobile";
 /**
  * Australian mobile input.
  *
- * The +61 is a fixed badge rather than something to type: the branch is on the
- * Sunshine Coast and every member is an Australian mobile, so the country code
- * is never a choice. Showing it also explains what the stored number will look
+ * The +61 is a fixed badge rather than something to type: every member is an
+ * Australian mobile whichever branch this is, so the country code is never a
+ * choice. Showing it also explains what the stored number will look
  * like, which is the format staff see on the redemption screen.
  *
  * Whatever is typed or pasted — 0412 345 678, 412345678, +61 412 345 678 — is

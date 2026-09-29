@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Terms for the Aspley VIP Club.
+ * Terms for the VIP Club, branded from SITE for whichever branch is deployed.
  *
  * Written against what the code actually does, and nothing else:
  *

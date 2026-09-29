@@ -1,5 +1,5 @@
 /**
- * Australian mobiles, since the branch is Aspley. Accepts 04xx xxx xxx,
+ * Australian mobiles — every branch is in Australia. Accepts 04xx xxx xxx,
  * +614xx xxx xxx and 614xx xxx xxx; stores everything as +614xxxxxxxx so the
  * unique constraint on `mobile` actually means one person, one row.
  */

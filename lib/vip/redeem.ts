@@ -127,8 +127,8 @@ export async function redeemReward(code: string): Promise<RedeemResult> {
     .where(
       and(
         or(eq(vipRewards.rewardCode, code), eq(vipRewards.staffCode, code)),
-        // Scoped to this branch: the database is shared, so without it an
-        // Aspley till could redeem a gift another branch issued.
+        // Scoped to this branch: the database is shared, so without it a till
+        // at one branch could redeem a gift another branch issued.
         eq(vipRewards.branchName, branch()),
         eq(vipRewards.status, ISSUED),
         or(isNull(vipRewards.expiresAt), gt(vipRewards.expiresAt, new Date())),

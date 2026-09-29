@@ -36,6 +36,16 @@ const PREFIXES: Record<Branch, string> = {
   sunshine_coast: "SC",
 };
 
+/**
+ * How the branch is written for a customer to read — the badge under the
+ * wordmark, not the full trading name. SITE.name carries the full
+ * "Dosa Hut <branch>"; this is only the second half.
+ */
+const LABELS: Record<Branch, string> = {
+  aspley: "Aspley",
+  sunshine_coast: "Sunshine Coast",
+};
+
 /** Used only outside production, and only after warning. */
 const DEV_FALLBACK: Branch = "aspley";
 
@@ -85,6 +95,11 @@ export function branch(): Branch {
 /** Staff-code prefix for the active branch, e.g. "AS". */
 export function branchPrefix(): string {
   return PREFIXES[branch()];
+}
+
+/** Display name for the active branch, e.g. "Aspley". Server-side only. */
+export function branchLabel(): string {
+  return LABELS[branch()];
 }
 
 /**

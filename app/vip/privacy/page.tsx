@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Privacy policy for the Aspley VIP Club.
+ * Privacy policy for the VIP Club, branded from SITE for whichever branch is deployed.
  *
  * Describes the data the code actually handles and nothing more. In
  * particular:
